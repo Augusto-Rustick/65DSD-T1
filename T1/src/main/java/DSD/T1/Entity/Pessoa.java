@@ -19,16 +19,15 @@ public abstract class Pessoa {
 	protected String endereco;
 
 	public Pessoa() {
-		
+
 	}
-			
+
 	public Pessoa(String cpf, String nome, String endereco) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.endereco = endereco;
 	}
-	
 
 	public Integer getId() {
 		return id;
