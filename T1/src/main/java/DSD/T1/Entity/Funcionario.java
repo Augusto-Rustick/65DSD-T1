@@ -1,8 +1,14 @@
 package DSD.T1.Entity;
 
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
 public class Funcionario extends Pessoa {
 
+	@NotNull
 	private String ctps;
+	@NotNull
 	private int quantidadeVendas;
 
 	public Funcionario(String cpf, String nome, String endereco, String ctps, int quantidadeVendas) {

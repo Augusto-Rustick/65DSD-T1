@@ -1,7 +1,16 @@
 package DSD.T1.Entity;
 
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+@Entity
 public class Cliente extends Pessoa {
-	private String telefone, email;
+	
+	@Size(min = 9, message = "O telefone deve ter pelo menos 9 caracteres")
+	private String telefone;
+	@NotNull
+	protected String email;
 
 	public Cliente(String cpf, String nome, String endereco, String telefone, String email) {
 		super(cpf, nome, endereco);

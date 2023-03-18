@@ -1,8 +1,22 @@
 package DSD.T1.Entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
+
+@Entity
 public abstract class Pessoa {
 
-	protected String cpf, nome, endereco;
+	@Id
+	@GeneratedValue
+	private Integer id;
+	@Size(min = 11, message = "O telefone deve ter pelo menos 11 caracteres")
+	protected String cpf;
+	@Size(min = 3, message = "O telefone deve ter pelo menos 3 caracteres")
+	protected String nome;
+	@Size(min = 10, message = "O telefone deve ter pelo menos 10 caracteres")
+	protected String endereco;
 
 	public Pessoa(String cpf, String nome, String endereco) {
 		super();
