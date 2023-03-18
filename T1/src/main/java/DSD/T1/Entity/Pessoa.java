@@ -18,11 +18,24 @@ public abstract class Pessoa {
 	@Size(min = 10, message = "O telefone deve ter pelo menos 10 caracteres")
 	protected String endereco;
 
+	public Pessoa() {
+		
+	}
+			
 	public Pessoa(String cpf, String nome, String endereco) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.endereco = endereco;
+	}
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCpf() {

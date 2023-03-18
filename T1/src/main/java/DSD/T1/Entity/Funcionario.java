@@ -11,6 +11,10 @@ public class Funcionario extends Pessoa {
 	@NotNull
 	private int quantidadeVendas;
 
+	public Funcionario() {
+		super();
+	}
+			
 	public Funcionario(String cpf, String nome, String endereco, String ctps, int quantidadeVendas) {
 		super(cpf, nome, endereco);
 		this.ctps = ctps;

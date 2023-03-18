@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Departamento {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -18,12 +18,22 @@ public class Departamento {
 	protected String produto;
 	@NotNull
 	private int quantidadeEstoque;
-	
+
+	public Departamento() {
+	}
+
 	public Departamento(String nome, String produto, int quantidadeEstoque) {
-		super();
 		this.nome = nome;
 		this.produto = produto;
 		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {

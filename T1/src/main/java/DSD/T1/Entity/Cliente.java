@@ -6,11 +6,15 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Cliente extends Pessoa {
-	
+
 	@Size(min = 9, message = "O telefone deve ter pelo menos 9 caracteres")
 	private String telefone;
 	@NotNull
 	protected String email;
+
+	public Cliente() {
+		super();
+	}
 
 	public Cliente(String cpf, String nome, String endereco, String telefone, String email) {
 		super(cpf, nome, endereco);
