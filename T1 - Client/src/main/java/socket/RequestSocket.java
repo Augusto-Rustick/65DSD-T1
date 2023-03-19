@@ -29,6 +29,18 @@ public class RequestSocket {
 
     public RequestSocket(String request) {
         arrayDados = request.split(";");
+
+        switch (arrayDados[0]) {
+            case "cliente":
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
+                break;
+            case "funcionario":
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
+                break;
+            case "departamento":
+                jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade", "id"};
+                break;
+        }
     }
 
     public String execute() {
@@ -90,11 +102,11 @@ public class RequestSocket {
         JSONObject json = new JSONObject();
 
         int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
-        
-        if(isUpdate){
+
+        if (isUpdate) {
             forInteration++;
         }
-        
+
         for (int c = 2; c < forInteration; c++) {
             json.put(jsonKeys[c], arrayDados[c]);
         }
