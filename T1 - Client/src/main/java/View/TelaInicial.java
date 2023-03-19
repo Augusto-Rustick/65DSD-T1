@@ -5,6 +5,7 @@
 package View;
 
 import javax.swing.JFrame;
+import socket.RequestCliente;
 import socket.RequestSocket;
 
 /**
@@ -144,7 +145,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTesteActionPerformed
         String teste = "cliente;INSERT;12545625435;Augusto;ruaruarua;48984827115;teste@gmail.com";
-        RequestSocket req = new RequestSocket(teste);
+        RequestSocket req = new RequestCliente(teste);
         String retorno = req.execute();
         System.out.println(retorno);
     }//GEN-LAST:event_btnTesteActionPerformed

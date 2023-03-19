@@ -8,6 +8,10 @@ package socket;
  *
  * @author arust
  */
-public class RequestDepartamento {
+public class RequestDepartamento extends RequestSocket{
     
+    public RequestDepartamento(String request){
+        super(request);
+        jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade"};
+    }
 }

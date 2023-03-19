@@ -8,6 +8,10 @@ package socket;
  *
  * @author arust
  */
-public class RequestCliente {
+public class RequestCliente extends RequestSocket{
     
+    public RequestCliente(String request){
+        super(request);
+        jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "rua", "telefone", "email"};
+    }
 }

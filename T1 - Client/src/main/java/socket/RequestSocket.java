@@ -1,6 +1,5 @@
 package socket;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.client.methods.HttpPost;
@@ -11,19 +10,17 @@ import org.json.JSONObject;
 
 public class RequestSocket {
 
-    private boolean status = true;
-    private String request = "EMPTY";
-    private String response = "START";
+    protected boolean status = true;
+    protected String request = "EMPTY";
+    protected String response = "START";
 
-    private String[] arrayDados;
-    private String[] clientKeys = {"entity", "requestType", "cpf", "nome", "rua", "telefone", "email"};
+    protected String[] arrayDados = new String[7];
+    protected String[] jsonKeys;
 
     public RequestSocket() {
     }
-
+    
     public RequestSocket(String request) {
-        //cliente;INSERT;12545625435;Augusto;ruaruarua;48984827115;teste@gmail.com
-        arrayDados = new String[7];
         arrayDados = request.split(";");
     }
 
@@ -32,11 +29,11 @@ public class RequestSocket {
             return this.requesting();
         } catch (Exception ex) {
             Logger.getLogger(RequestSocket.class.getName()).log(Level.SEVERE, null, ex);
+            return "Erro ao tentar fazer a consulta";
         }
-        return "";
     }
 
-    private String requesting() throws Exception {
+    protected String requesting() throws Exception {
         JSONObject json = this.getJson();
         String sUrl = "http://localhost:8080/cliente/save";
 
@@ -56,11 +53,11 @@ public class RequestSocket {
         return json.toString();
     }
 
-    private JSONObject getJson() {
+    protected JSONObject getJson() {
 
         JSONObject json = new JSONObject();
         for (int c = 2; c < 7; c++) {
-            json.put(clientKeys[c], arrayDados[c]);
+            json.put(jsonKeys[c], arrayDados[c]);
         }
 
         return json;
