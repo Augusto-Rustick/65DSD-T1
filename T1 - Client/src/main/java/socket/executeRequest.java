@@ -27,9 +27,9 @@ public class executeRequest {
         String testeGet = "departamento;Get;;;;;;2";
         String testeList = "departamento;List;;;;;;";
         String testeRemove = "departamento;Remove;;;;;;54";
-        String testeUpdate =  "departamento;Insert;departamentado;almas;15;";
-        RequestSocket req = new RequestSocket(testeList);
+        String testeUpdate = "departamento;Insert;departamentado;almas;15;";
 
+        RequestSocket req = new RequestSocket(testeList);
         String retorno = req.execute();
         System.out.println(retorno);
     }
