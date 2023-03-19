@@ -34,16 +34,13 @@ public class Server {
                 int dataBytes;
 
                 while (request.isActive()) {
-                    if (in.available() > 0) {
-                        dataBytes = in.read(data);
-                        System.out.println("data 1");
-                        request.setRequest(new String(data, 0, dataBytes));
-                        handleRequest(request);
-                    }
+                    dataBytes = in.read(data);
+                    System.out.println("data 1");
+                    request.setRequest(new String(data, 0, dataBytes));
+                    handleRequest(request);
                 }
             } catch (IOException e) {
-                System.out.println("Failed to accept client connection.");
-                e.printStackTrace();
+                System.out.println("Failed to accept client connection or client disconnected.");
             }
         }
     }
