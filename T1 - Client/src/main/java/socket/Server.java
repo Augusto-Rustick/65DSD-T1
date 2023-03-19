@@ -1,3 +1,5 @@
+package socket;
+
 import java.io.*;
 import java.net.*;
 
@@ -17,7 +19,7 @@ public class Server {
     }
 
     public void run() {
-        Request request = new Request();
+        RequestSocket request = new RequestSocket();
         while (request.isActive()) {
             try {
                 Socket clientSocket = serverSocket.accept();
@@ -44,7 +46,7 @@ public class Server {
         }
     }
 
-    public void handleRequest(Request request) throws IOException {
+    public void handleRequest(RequestSocket request) throws IOException {
         if (request.getRequest().equals("exit")) {
             request.setActive(false);
             request.setResponse("STOPPED");

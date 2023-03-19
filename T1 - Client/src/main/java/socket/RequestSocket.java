@@ -1,8 +1,10 @@
-public class Request {
+package socket;
+
+public class RequestSocket {
     private boolean status = true;
     private String request = "EMPTY";
     private String response = "START";
-
+    
     public boolean isActive() {
         return status;
     }

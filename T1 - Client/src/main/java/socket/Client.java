@@ -1,3 +1,6 @@
+package socket;
+
+import socket.RequestSocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,7 +15,7 @@ public class Client {
     OutputStream out;
 
     public void connect(String host, int port, int timeout) throws IOException {
-        Request request = new Request();
+        RequestSocket request = new RequestSocket();
         try (Socket conn = new Socket(host, port)) {
             conn.setSoTimeout(timeout);
             in = conn.getInputStream();
