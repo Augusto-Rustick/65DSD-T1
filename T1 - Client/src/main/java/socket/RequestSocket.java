@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -20,7 +21,7 @@ public class RequestSocket {
     protected String[] jsonKeys;
     protected String baseUrl = "http://localhost:8080/";
 
-    public RequestSocket(String request) {
+    public RequestSocket(String request) throws Exception {
         arrayDados = request.split(";");
 
         switch (arrayDados[0]) {
@@ -42,7 +43,7 @@ public class RequestSocket {
         }
     }
 
-    protected String requesting(){
+    protected String requesting() {
         String formattedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
         String responseBody = "";
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {

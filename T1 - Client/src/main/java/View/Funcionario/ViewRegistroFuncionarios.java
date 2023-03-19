@@ -34,7 +34,7 @@ public class ViewRegistroFuncionarios extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e->{
-            String txt = cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  this.ctpsField.getText();
+            String txt = "funcionario;INSERT;"+cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  this.ctpsField.getText()+";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

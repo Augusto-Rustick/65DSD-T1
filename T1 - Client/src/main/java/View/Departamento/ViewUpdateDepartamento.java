@@ -34,7 +34,7 @@ public class ViewUpdateDepartamento extends JFrame {
         registerButton.setEnabled(false);
 
         findButton.addActionListener(e->{
-            String txt = "Departmanto;GET;"+nomeField.getText();
+            String txt = "departmanto;GET;"+nomeField.getText()+";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
@@ -57,7 +57,7 @@ public class ViewUpdateDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e->{
-            String txt = nomeField.getText() + ";" + produtoField.getText() + ";" + qntProdutoFiled.getText() + ";";
+            String txt = "departamento;UPDATE;"+nomeField.getText() + ";" + produtoField.getText() + ";" + qntProdutoFiled.getText() + ";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

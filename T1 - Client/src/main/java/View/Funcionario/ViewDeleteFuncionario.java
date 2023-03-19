@@ -23,7 +23,7 @@ public class ViewDeleteFuncionario extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "Funcionario;DELETE;"+cpfField.getText()+";";
+            String txt = "funcionario;DELETE;"+cpfField.getText()+";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

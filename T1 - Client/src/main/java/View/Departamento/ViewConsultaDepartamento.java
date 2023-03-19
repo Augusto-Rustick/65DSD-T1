@@ -27,7 +27,7 @@ public class ViewConsultaDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "Departamento;GET;"+ nomeDeptField.getText()+";";
+            String txt = "departamento;GET;"+ nomeDeptField.getText()+";";
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {

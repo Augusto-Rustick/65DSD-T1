@@ -35,16 +35,15 @@ public class Server {
 
                 while (isAlive) {
                     dataBytes = in.read(data);
-                    System.out.println("data 1");
                     handleRequest(new String(data, 0, dataBytes));
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("Failed to accept client connection or client disconnected.");
             }
         }
     }
 
-    public void handleRequest(String request) throws IOException {
+    public void handleRequest(String request) throws Exception {
         if (request.equals("exit")) {
             isAlive = false;
             out.write("STOPPED".getBytes());

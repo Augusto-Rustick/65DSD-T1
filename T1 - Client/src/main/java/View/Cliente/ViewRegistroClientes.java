@@ -40,7 +40,7 @@ public class ViewRegistroClientes extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e->{
-            String txt = cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText();
+            String txt = "cliente;INSERT;"+cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText()+";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

@@ -42,7 +42,7 @@ public class ViewUpdateClientes extends JFrame {
         registerButton.setEnabled(false);
 
         findButton.addActionListener(e->{
-            String txt = "Cliente;GET;"+cpfField.getText();
+            String txt = "cliente;GET;"+cpfField.getText()+";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
@@ -67,7 +67,7 @@ public class ViewUpdateClientes extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e->{
-            String txt = cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText();
+            String txt = "cliente;UPDATE;"+cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText()+";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

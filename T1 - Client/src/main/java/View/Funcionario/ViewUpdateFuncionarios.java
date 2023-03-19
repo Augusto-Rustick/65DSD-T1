@@ -37,14 +37,14 @@ public class ViewUpdateFuncionarios extends JFrame {
         JButton registerButton = new JButton("Register");
         registerButton.setEnabled(false);
 
-        findButton.addActionListener(e->{
-            String txt = "Departmanto;GET;"+cpfField.getText();
+        findButton.addActionListener(e -> {
+            String txt = "departmanto;GET;" + cpfField.getText() + ";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
-                try{
+                try {
                     myjson = new JSONObject(response);
-                }catch(JSONException je){
+                } catch (JSONException je) {
                     cpfField.setText("Não encontrado!");
                     myjson = new JSONObject("{'nome':'','endereco':'','ctps':''}");
                 }
@@ -61,8 +61,8 @@ public class ViewUpdateFuncionarios extends JFrame {
 
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
-        registerButton.addActionListener(e->{
-            String txt = cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  this.ctpsField.getText();
+        registerButton.addActionListener(e -> {
+            String txt = "funcionario;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

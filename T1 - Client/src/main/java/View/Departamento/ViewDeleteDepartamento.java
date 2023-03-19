@@ -23,7 +23,7 @@ public class ViewDeleteDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "Departamento;DELETE;"+ nomeDeptField.getText()+";";
+            String txt = "departamento;DELETE;"+ nomeDeptField.getText()+";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
