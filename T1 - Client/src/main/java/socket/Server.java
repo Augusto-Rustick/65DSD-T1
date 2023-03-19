@@ -1,4 +1,4 @@
-package socket;
+package Socket;
 
 import java.io.*;
 import java.net.*;
@@ -34,10 +34,12 @@ public class Server {
                 int dataBytes;
 
                 while (request.isActive()) {
-                    dataBytes = in.read(data);
-                    request.setRequest(new String(data, 0, dataBytes));
-                    handleRequest(request);
-                    System.out.println(request);
+                    if (in.available() > 0) {
+                        dataBytes = in.read(data);
+                        System.out.println("data 1");
+                        request.setRequest(new String(data, 0, dataBytes));
+                        handleRequest(request);
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Failed to accept client connection.");
@@ -52,7 +54,7 @@ public class Server {
             request.setResponse("STOPPED");
             out.write(request.getResponse().getBytes());
         }
-        request.setResponse("OK");
+        request.setResponse("OK: " + request.getRequest());
         out.write(request.getResponse().getBytes());
         out.flush();
     }
