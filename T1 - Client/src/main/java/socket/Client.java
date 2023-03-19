@@ -16,16 +16,13 @@ public class Client {
     OutputStream out;
     byte[] data = new byte[1024];
     int dataBytes;
-    RequestSocket request = new RequestSocket();
     Socket conn;
 
     public String write(String req) throws IOException {
-        request.setRequest(req);
         out.flush();
-        out.write(request.getRequest().getBytes());
+        out.write(req.getBytes());
         dataBytes = in.read(data);
-        request.setResponse(new String(data, 0, dataBytes));
-        return request.getResponse();
+        return new String(data, 0, dataBytes);
     }
 
     private void connect(String host, int port, int timeout) throws IOException {
@@ -35,7 +32,6 @@ public class Client {
             in = conn.getInputStream();
             out = conn.getOutputStream();
             dataBytes = in.read(data);
-            request.setResponse(new String(data, 0, dataBytes));
         } catch (UnknownHostException err) {
             System.out.println(err.getMessage());
         }

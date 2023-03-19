@@ -16,30 +16,20 @@ import org.json.JSONObject;
 
 public class RequestSocket {
 
-    protected boolean status = true;
-    protected String request = "EMPTY";
-    protected String response = "START";
-
-    protected String[] arrayDados = new String[8];
+    protected String[] arrayDados;
     protected String[] jsonKeys;
     protected String baseUrl = "http://localhost:8080/";
-
-    public RequestSocket() {
-    }
 
     public RequestSocket(String request) {
         arrayDados = request.split(";");
 
         switch (arrayDados[0]) {
-            case "cliente":
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
-                break;
-            case "funcionario":
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
-                break;
-            case "departamento":
-                jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade", "id"};
-                break;
+            case "cliente" ->
+                    jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
+            case "funcionario" ->
+                    jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
+            case "departamento" ->
+                    jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade", "id"};
         }
     }
 
@@ -52,43 +42,40 @@ public class RequestSocket {
         }
     }
 
-    protected String requesting() throws Exception {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
+    protected String requesting(){
+        String formattedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
         String responseBody = "";
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        try {
-            String methodName = "request" + arrayDados[1];
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+            String methodName = "request" + arrayDados[1].toUpperCase();
             Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class, String.class);
-            responseBody = (String) method.invoke(this, httpClient, formatedUrl);
+            responseBody = (String) method.invoke(this, httpClient, formattedUrl);
         } catch (Exception ex) {
             return ex.getMessage();
-        } finally {
-            httpClient.close();
         }
         return responseBody;
     }
 
-    public String requestGet(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+    public String requestGET(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         formatedUrl += "/" + arrayDados[7];
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
-    public String requestList(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+    public String requestLIST(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity());
     }
 
-    public String requestRemove(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+    public String requestREMOVE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         formatedUrl += "/" + arrayDados[7];
         HttpDelete request = new HttpDelete(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
-    public String requestInsert(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+    public String requestINSERT(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         HttpPost request = new HttpPost(formatedUrl);
         JSONObject json = this.getJson(false);
         StringEntity params = new StringEntity(json.toString());
@@ -112,29 +99,4 @@ public class RequestSocket {
         }
         return json;
     }
-
-    public boolean isActive() {
-        return status;
-    }
-
-    public void setActive(boolean status) {
-        this.status = status;
-    }
-
-    public String getRequest() {
-        return request;
-    }
-
-    public void setRequest(String request) {
-        this.request = request;
-    }
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
 }

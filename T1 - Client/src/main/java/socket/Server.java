@@ -7,6 +7,7 @@ public class Server {
     private ServerSocket serverSocket;
     private InputStream in;
     private OutputStream out;
+    private boolean isAlive = true;
 
     public Server(int port) {
         try {
@@ -19,13 +20,12 @@ public class Server {
     }
 
     public void run() {
-        RequestSocket request = new RequestSocket();
-        while (request.isActive()) {
+        while (isAlive) {
             try {
                 Socket clientSocket = serverSocket.accept();
                 in = clientSocket.getInputStream();
                 out = clientSocket.getOutputStream();
-                out.write(request.getResponse().getBytes());
+                out.write("STARTED".getBytes());
                 out.flush();
 
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress().getHostName());
@@ -33,11 +33,10 @@ public class Server {
                 byte[] data = new byte[1024];
                 int dataBytes;
 
-                while (request.isActive()) {
+                while (isAlive) {
                     dataBytes = in.read(data);
                     System.out.println("data 1");
-                    request.setRequest(new String(data, 0, dataBytes));
-                    handleRequest(request);
+                    handleRequest(new String(data, 0, dataBytes));
                 }
             } catch (IOException e) {
                 System.out.println("Failed to accept client connection or client disconnected.");
@@ -45,14 +44,13 @@ public class Server {
         }
     }
 
-    public void handleRequest(RequestSocket request) throws IOException {
-        if (request.getRequest().equals("exit")) {
-            request.setActive(false);
-            request.setResponse("STOPPED");
-            out.write(request.getResponse().getBytes());
+    public void handleRequest(String request) throws IOException {
+        if (request.equals("exit")) {
+            isAlive = false;
+            out.write("STOPPED".getBytes());
         }
-        request.setResponse("OK: " + request.getRequest());
-        out.write(request.getResponse().getBytes());
+        RequestSocket req = new RequestSocket(request);
+        out.write(req.execute().getBytes());
         out.flush();
     }
 
