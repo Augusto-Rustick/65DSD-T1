@@ -3,6 +3,8 @@ package View;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +22,7 @@ public class RegisterClients extends JFrame {
 
     public RegisterClients() {
         super("My Form");
-
+        RegisterClients me = this;
         // Create the labels and text fields for the form fields
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
@@ -41,6 +43,14 @@ public class RegisterClients extends JFrame {
         // Create the register button
         registerButton = new JButton("Register");
         registerButton.setFont(registerButton.getFont().deriveFont(16f)); // Increase the font size
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaInicial form = new TelaInicial();
+                form.setVisible(true);
+                me.setVisible(false);
+            }
+        });
 
         // Create a panel to hold the form fields and the register button using a GridBagLayout
         JPanel formPanel = new JPanel(new GridBagLayout());
