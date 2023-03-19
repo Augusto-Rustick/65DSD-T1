@@ -12,6 +12,6 @@ public class RequestDepartamento extends RequestSocket{
     
     public RequestDepartamento(String request){
         super(request);
-        jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade"};
+        jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidade", "id"};
     }
 }

@@ -12,6 +12,7 @@ public class RequestCliente extends RequestSocket{
     
     public RequestCliente(String request){
         super(request);
-        jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "rua", "telefone", "email"};
+        jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "rua", "telefone", "email", "id"};
+        //insert, update, delete, get, list
     }
 }

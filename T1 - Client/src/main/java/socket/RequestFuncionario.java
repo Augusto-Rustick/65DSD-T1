@@ -12,6 +12,6 @@ public class RequestFuncionario extends RequestSocket{
     
     public RequestFuncionario(String request){
         super(request);
-        jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "rua", "ctps", "quantidadeVendas"};
+        jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "rua", "ctps", "quantidadeVendas", "id"};
     }
 }
