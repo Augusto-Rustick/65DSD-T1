@@ -23,7 +23,7 @@ public class FuncionarioResource {
 		this.repo = repo;
 	}
 
-	@PostMapping("/funcionario/save")
+	@PostMapping("/funcionario/insert")
 	public ResponseEntity<Funcionario> createCliente(@Valid @RequestBody Funcionario funcionario) {
 		Funcionario savedFuncionario = repo.save(funcionario);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
@@ -31,12 +31,12 @@ public class FuncionarioResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("/funcionario/getAll")
+	@GetMapping("/funcionario/list")
 	public List<Funcionario> allFuncionarios() {
 		return repo.findAll();
 	}
 
-	@GetMapping("/funcionario/getById/{id}")
+	@GetMapping("/funcionario/get/{id}")
 	public Funcionario getFuncionario(@PathVariable int id) throws Exception {
 		Optional<Funcionario> funcionario = repo.findById(id);
 		if (funcionario.isEmpty()) {

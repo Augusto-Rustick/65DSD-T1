@@ -23,7 +23,7 @@ public class DepartamentoResource {
 		this.repo = repo;
 	}
 
-	@PostMapping("/departamento/save")
+	@PostMapping("/departamento/insert")
 	public ResponseEntity<Departamento> createDepartamento(@Valid @RequestBody Departamento departamento) {
 		Departamento savedDepartamento = repo.save(departamento);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
@@ -31,12 +31,12 @@ public class DepartamentoResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("/departamento/getAll")
+	@GetMapping("/departamento/list")
 	public List<Departamento> allDepartamentos() {
 		return repo.findAll();
 	}
 
-	@GetMapping("/departamento/getById/{id}")
+	@GetMapping("/departamento/get/{id}")
 	public Departamento getDepartamento(@PathVariable int id) throws Exception {
 		Optional<Departamento> departamento = repo.findById(id);
 		if (departamento.isEmpty()) {

@@ -15,7 +15,7 @@ public abstract class Pessoa {
 	protected String cpf;
 	@Size(min = 3, message = "O telefone deve ter pelo menos 3 caracteres")
 	protected String nome;
-	@Size(min = 10, message = "O telefone deve ter pelo menos 10 caracteres")
+	@Size(min = 5, message = "O telefone deve ter pelo menos 5 caracteres")
 	protected String endereco;
 
 	public Pessoa() {
