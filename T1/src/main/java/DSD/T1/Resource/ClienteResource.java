@@ -24,7 +24,7 @@ public class ClienteResource {
 		this.repo = repo;
 	}
 
-	@PostMapping("/cliente/save")
+	@PostMapping("/cliente/insert")
 	public ResponseEntity<Cliente> createCliente(@Valid @RequestBody Cliente cliente) {
 		Cliente savedCliente = repo.save(cliente);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
@@ -32,12 +32,12 @@ public class ClienteResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("/cliente/getAll")
+	@GetMapping("/cliente/list")
 	public List<Cliente> allCliente() {
 		return repo.findAll();
 	}
 
-	@GetMapping("/cliente/getById/{id}")
+	@GetMapping("/cliente/get/{id}")
 	public Cliente getCliente(@PathVariable int id) throws Exception {
 		Optional<Cliente> cliente = repo.findById(id);
 		if (cliente.isEmpty()) {
