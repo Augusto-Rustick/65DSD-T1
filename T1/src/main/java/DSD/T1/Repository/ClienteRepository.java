@@ -11,7 +11,4 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
 	@Query("SELECT c FROM Cliente c WHERE c.cpf = ?1")
     Cliente findByCpf(String cpf);
-	
-//	@Query("DELETE FROM Cliente C WHERE c.cpf = ?1")
-//    void deleteByCpf(String cpf);
 }
