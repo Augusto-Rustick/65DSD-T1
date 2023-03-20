@@ -37,11 +37,11 @@ public class ClienteResource {
 		return repo.findAll();
 	}
 
-	@GetMapping("/cliente/get/{id}")
-	public Cliente getCliente(@PathVariable int id) throws Exception {
-		Optional<Cliente> cliente = repo.findById(id);
+	@GetMapping("/cliente/get/{cpf}")
+	public Cliente getCliente(@PathVariable String cpf) throws Exception {
+		Optional<Cliente> cliente = Optional.ofNullable(repo.findByCpf(cpf));
 		if (cliente.isEmpty()) {
-			throw new Exception("erro no id: " + id);
+			throw new Exception("erro no cpf: " + cpf);
 		}
 		return cliente.get();
 	}

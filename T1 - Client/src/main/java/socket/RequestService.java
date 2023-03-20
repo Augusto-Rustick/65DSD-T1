@@ -15,13 +15,13 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-public class RequestSocket {
+public class RequestService {
 
     protected String[] arrayDados;
     protected String[] jsonKeys;
     protected String baseUrl = "http://localhost:8080/";
 
-    public RequestSocket(String request) throws Exception {
+    public RequestService(String request) throws Exception {
         arrayDados = request.split(";");
 
         switch (arrayDados[0]) {
@@ -38,7 +38,7 @@ public class RequestSocket {
         try {
             return this.requesting();
         } catch (Exception ex) {
-            Logger.getLogger(RequestSocket.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RequestService.class.getName()).log(Level.SEVERE, null, ex);
             return "Erro ao tentar fazer a consulta";
         }
     }
@@ -57,7 +57,7 @@ public class RequestSocket {
     }
 
     public String requestGET(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        formatedUrl += "/" + arrayDados[7];
+        formatedUrl += "/" + arrayDados[2];
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);

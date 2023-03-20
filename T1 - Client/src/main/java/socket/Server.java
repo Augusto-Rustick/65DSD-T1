@@ -48,7 +48,7 @@ public class Server {
             isAlive = false;
             out.write("STOPPED".getBytes());
         }
-        RequestSocket req = new RequestSocket(request);
+        RequestService req = new RequestService(request);
         out.write(req.execute().getBytes());
         out.flush();
     }
