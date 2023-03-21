@@ -35,12 +35,12 @@ public class executeRequest {
 //        testeInsert = "departamento;Insert;departamentadasso;almas;15";
 //        testeUpdate = "departamento;Update;departgyjfhsaamentadassozadoasdo;almas;15;303";
 //        testeGet = "departamento;Get;departgyjfhsaamentadassozadoasdo";
-//        testeList = "departamento;List";
+        testeList = "departamento;List";
 //        testeRemove = "departamento;Delete;254";
 
         RequestService req;
         try {
-            req = new RequestService(testeInsert);
+            req = new RequestService(testeList);
             String retorno = req.execute();
             System.out.println(retorno);
         } catch (Exception ex) {

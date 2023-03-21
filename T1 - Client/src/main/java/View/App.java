@@ -6,6 +6,7 @@ import View.Cliente.ViewRegistroClientes;
 import View.Cliente.ViewUpdateClientes;
 import Components.CustomJMenuItem;
 import Socket.Client;
+import View.Compra.ViewCompra;
 import View.Departamento.ViewConsultaDepartamento;
 import View.Departamento.ViewDeleteDepartamento;
 import View.Departamento.ViewRegistroDepartamento;
@@ -25,9 +26,10 @@ public class App extends JFrame {
     JMenu clienteOptions = new JMenu("Cliente");
     JMenu funcionarioOptions = new JMenu("Funcionario");
     JMenu departamentoOptions = new JMenu("Departamento");
+    JMenu comprarOptions = new JMenu("Comprar");
     Client client;
 
-    private void handleClienteOptions(JMenuBar menuBar, JPanel panel) {
+    private void handleClienteOptions(JMenuBar menuBar, JPanel panel) throws IOException {
 
         clienteOptions = new JMenu("Cliente");
 
@@ -39,7 +41,7 @@ public class App extends JFrame {
 
     }
 
-    private void handleFuncionarioOptions(JMenuBar menuBar, JPanel panel) {
+    private void handleFuncionarioOptions(JMenuBar menuBar, JPanel panel) throws IOException {
 
         funcionarioOptions = new JMenu("Funcionario");
 
@@ -63,6 +65,15 @@ public class App extends JFrame {
 
     }
 
+    private void handleBuyOptions(JMenuBar menuBar, JPanel panel) throws IOException {
+
+        comprarOptions = new JMenu("Comprar");
+
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Produto", new ViewCompra(client).getContentPane()));
+        menuBar.add(comprarOptions);
+
+    }
+
     public void addConnectionButton(JMenuBar menuBar, JPanel contentPane) {
         JButton button = new JButton("Connect");
         button.addActionListener(e -> {
@@ -71,6 +82,7 @@ public class App extends JFrame {
                 handleClienteOptions(menuBar, contentPane);
                 handleFuncionarioOptions(menuBar, contentPane);
                 handleDepartamentoOptions(menuBar, contentPane);
+                handleBuyOptions(menuBar, contentPane);
                 revalidate();
                 repaint();
                 button.setVisible(false);

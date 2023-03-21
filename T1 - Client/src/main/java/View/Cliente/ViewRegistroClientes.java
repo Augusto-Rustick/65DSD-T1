@@ -1,6 +1,7 @@
 package View.Cliente;
 
 import Socket.Client;
+import Components.DepartamentoComboBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +16,10 @@ public class ViewRegistroClientes extends JFrame {
     private final JTextField addressField;
     private final JTextField phoneField;
     private final JTextField emailField;
+    private final DepartamentoComboBox departmentCb;
 
-    public ViewRegistroClientes(Client client) {
+
+    public ViewRegistroClientes(Client client) throws IOException {
 
         super("Register Clients");
 
@@ -35,16 +38,27 @@ public class ViewRegistroClientes extends JFrame {
         JLabel emailLabel = new JLabel("Email:");
         emailField = new JTextField(20);
         emailField.setFont(emailField.getFont().deriveFont(16f));
+        JLabel departmentCbLabel = new JLabel("Departamento:");
+        departmentCb = new DepartamentoComboBox(client);
+        departmentCb.setFont(departmentCb.getFont().deriveFont(16f));
+
 
         JButton registerButton = new JButton("Register");
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;INSERT;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + emailField.getText() + ";";
+            String txt = "cliente;INSERT;" + cpfField.getText().replace(";", "") + ";"
+                    + nameField.getText().replace(";", "") + ";"
+                    + addressField.getText().replace(";", "") + ";"
+                    + phoneField.getText().replace(";", "") + ";"
+                    + emailField.getText().replace(";", "") + ";"
+                    + departmentCb.getId() + ";";
+            System.out.println(txt);
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
-                showMessageDialog(this, ex.getMessage());;
+                showMessageDialog(this, ex.getMessage());
+                ;
             }
         });
 
@@ -79,6 +93,11 @@ public class ViewRegistroClientes extends JFrame {
         formPanel.add(emailField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
+        formPanel.add(departmentCbLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(departmentCb, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 

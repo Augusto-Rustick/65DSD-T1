@@ -1,5 +1,6 @@
 package View.Funcionario;
 
+import Components.DepartamentoComboBox;
 import Socket.Client;
 
 import javax.swing.*;
@@ -14,8 +15,9 @@ public class ViewRegistroFuncionarios extends JFrame {
     private final JTextField nameField;
     private final JTextField addressField;
     private final JTextField ctpsField;
+    private final DepartamentoComboBox departmentCb;
 
-    public ViewRegistroFuncionarios(Client client) {
+    public ViewRegistroFuncionarios(Client client) throws IOException {
 
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
@@ -29,6 +31,9 @@ public class ViewRegistroFuncionarios extends JFrame {
         JLabel ctpsLabel = new JLabel("CTPS:");
         ctpsField = new JTextField(20);
         ctpsField.setFont(addressField.getFont().deriveFont(16f));
+        JLabel departmentCbLabel = new JLabel("Departamento:");
+        departmentCb = new DepartamentoComboBox(client);
+        departmentCb.setFont(departmentCb.getFont().deriveFont(16f));
 
         JButton registerButton = new JButton("Register");
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
@@ -66,6 +71,11 @@ public class ViewRegistroFuncionarios extends JFrame {
         formPanel.add(ctpsLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(ctpsField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(departmentCbLabel, gbc);
+        gbc.gridx = 1;
+        formPanel.add(departmentCb, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
