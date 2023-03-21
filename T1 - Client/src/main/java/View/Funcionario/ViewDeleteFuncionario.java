@@ -1,16 +1,22 @@
 package View.Funcionario;
 
 import Socket.Client;
+import View.Cliente.ViewDeleteCliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ViewDeleteFuncionario extends JFrame {
 
     private final JTextField cpfField;
+    private JSONObject myjson;
 
     public ViewDeleteFuncionario(Client client) {
 
@@ -23,12 +29,24 @@ public class ViewDeleteFuncionario extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;DELETE;"+cpfField.getText()+";";
             try {
-                showMessageDialog(this, client.write(txt));
+                String txt = "funcionario;GET;" + cpfField.getText() + ";";
+                String response = client.write(txt);
+                myjson = new JSONObject(response);
+            } catch (JSONException je) {
+                cpfField.setText("Não encontrado!");
+                myjson = new JSONObject("{'nome':'','endereco':'','ctps':'','quantidadeVendas':''}");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    String txt = "funcionario;DELETE;" + myjson.get("id").toString();
+                    showMessageDialog(this, client.write(txt));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+
         });
 
         JPanel formPanel = new JPanel(new GridBagLayout());

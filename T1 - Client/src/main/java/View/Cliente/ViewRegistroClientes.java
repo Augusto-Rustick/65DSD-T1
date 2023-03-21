@@ -44,7 +44,7 @@ public class ViewRegistroClientes extends JFrame {
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
-                showMessageDialog(this, ex.getMessage()); ;
+                showMessageDialog(this, ex.getMessage());;
             }
         });
 

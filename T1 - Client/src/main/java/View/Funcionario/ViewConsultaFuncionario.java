@@ -27,7 +27,7 @@ public class ViewConsultaFuncionario extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;GET;"+cpfField.getText()+";";
+            String txt = "funcionario;GET;" + cpfField.getText() + ";";
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {

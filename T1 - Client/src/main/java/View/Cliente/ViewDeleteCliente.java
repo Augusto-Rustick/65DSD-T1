@@ -37,15 +37,13 @@ public class ViewDeleteCliente extends JFrame {
                 myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','email':''}");
             } catch (IOException ex) {
                 Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println(myjson.toString());
-            
-            try {
-                String txt = "cliente;DELETE;" + myjson.get("id").toString();
-                System.out.println(txt);
-                showMessageDialog(this, client.write(txt));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+            } finally {
+                try {
+                    String txt = "cliente;DELETE;" + myjson.get("id").toString();
+                    showMessageDialog(this, client.write(txt));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

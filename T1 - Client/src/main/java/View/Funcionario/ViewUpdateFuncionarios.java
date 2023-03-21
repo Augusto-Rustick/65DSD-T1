@@ -12,6 +12,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ViewUpdateFuncionarios extends JFrame {
 
+    private final JTextField idField;
+    private final JTextField qntVendasField;
     private final JTextField cpfField;
     private final JTextField nameField;
     private final JTextField addressField;
@@ -19,6 +21,10 @@ public class ViewUpdateFuncionarios extends JFrame {
 
     public ViewUpdateFuncionarios(Client client) {
 
+        idField = new JTextField(20);
+        idField.setVisible(false);
+        qntVendasField = new JTextField(20);
+        qntVendasField.setVisible(false);
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
         cpfField.setFont(cpfField.getFont().deriveFont(16f));
@@ -38,7 +44,7 @@ public class ViewUpdateFuncionarios extends JFrame {
         registerButton.setEnabled(false);
 
         findButton.addActionListener(e -> {
-            String txt = "departmanto;GET;" + cpfField.getText() + ";";
+            String txt = "funcionario;GET;" + cpfField.getText() + ";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
@@ -49,6 +55,8 @@ public class ViewUpdateFuncionarios extends JFrame {
                     myjson = new JSONObject("{'nome':'','endereco':'','ctps':''}");
                 }
 
+                idField.setText(myjson.get("id").toString());
+                qntVendasField.setText(myjson.get("quantidadeVendas").toString());
                 nameField.setText(myjson.get("nome").toString());
                 addressField.setText(myjson.get("endereco").toString());
                 ctpsField.setText(myjson.get("ctps").toString());
@@ -58,11 +66,10 @@ public class ViewUpdateFuncionarios extends JFrame {
             }
         });
 
-
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";";
+            String txt = "funcionario;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";" + qntVendasField.getText() + ";" + idField.getText();
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

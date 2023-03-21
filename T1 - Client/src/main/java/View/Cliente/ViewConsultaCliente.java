@@ -3,8 +3,6 @@ package View.Cliente;
 import Socket.Client;
 
 import javax.swing.*;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.io.IOException;
 
@@ -29,7 +27,7 @@ public class ViewConsultaCliente extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;GET;"+cpfField.getText()+";";
+            String txt = "cliente;GET;" + cpfField.getText() + ";";
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {

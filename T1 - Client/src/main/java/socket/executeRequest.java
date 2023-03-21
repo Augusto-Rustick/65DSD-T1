@@ -20,11 +20,11 @@ public class executeRequest {
         String testeList = "";
         String testeRemove = "";
 //
-//        testeInsert = "cliente;Insert;61616464684642;Augusto;ruaruaruaaaa;48984827115;teste@gmail.com;";
-//        testeUpdate = "cliente;Update;61616464684642;Augustooooo;ruaruaruaaaa;48984827115;teste@gmail.com;752";
-//        testeGet = "cliente;Get;12545625435";
-//        testeList = "cliente;List";
-//        testeRemove = "cliente;Delete;752";
+        testeInsert = "cliente;Insert;15616165165165165;Augusto;ruaruaruaaaa;48984827115;teste@gmail.com;";
+        testeUpdate = "cliente;Update;61616464684642;Augustooooo;ruaruaruaaaa;48984827115;teste@gmail.com;752";
+        testeGet = "cliente;Get;12545625435";
+        testeList = "cliente;List";
+        testeRemove = "cliente;Delete;752";
 //
 //        testeInsert = "funcionario;Insert;123423131541235;Augusto;ruaruaruaaaa;asgfsaf;15;";
 //        testeUpdate = "funcionario;Update;123423131541235;Augustooooooo;ruaruaruaaaa;asgfsaf;15;807";
@@ -32,15 +32,15 @@ public class executeRequest {
 //        testeList = "funcionario;List";
 //        testeRemove = "funcionario;Delete;853";
 //
-        testeInsert = "departamento;Insert;departamentadasso;almas;15";
-        testeUpdate = "departamento;Update;departgyjfhsaamentadassozadoasdo;almas;15;303";
-        testeGet = "departamento;Get;departgyjfhsaamentadassozadoasdo";
-        testeList = "departamento;List";
-        testeRemove = "departamento;Delete;254";
+//        testeInsert = "departamento;Insert;departamentadasso;almas;15";
+//        testeUpdate = "departamento;Update;departgyjfhsaamentadassozadoasdo;almas;15;303";
+//        testeGet = "departamento;Get;departgyjfhsaamentadassozadoasdo";
+//        testeList = "departamento;List";
+//        testeRemove = "departamento;Delete;254";
 
         RequestService req;
         try {
-            req = new RequestService(testeGet);
+            req = new RequestService(testeInsert);
             String retorno = req.execute();
             System.out.println(retorno);
         } catch (Exception ex) {
