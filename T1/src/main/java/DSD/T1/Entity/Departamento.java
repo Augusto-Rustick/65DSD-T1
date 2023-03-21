@@ -1,5 +1,6 @@
 package DSD.T1.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ public class Departamento {
 	@GeneratedValue
 	private Integer id;
 	@Size(min = 3, message = "O nome deve ter pelo menos 3 caracteres")
+	@Column(unique = true)
 	private String nome;
 	@Size(min = 3, message = "O produto deve ter pelo menos 3 caracteres")
 	protected String produto;

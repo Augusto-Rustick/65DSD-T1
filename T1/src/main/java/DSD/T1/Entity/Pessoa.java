@@ -1,5 +1,6 @@
 package DSD.T1.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,6 +13,7 @@ public abstract class Pessoa {
 	@GeneratedValue
 	private Integer id;
 	@Size(min = 11, message = "O telefone deve ter pelo menos 11 caracteres")
+	@Column(unique = true)
 	protected String cpf;
 	@Size(min = 3, message = "O telefone deve ter pelo menos 3 caracteres")
 	protected String nome;
