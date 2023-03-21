@@ -17,21 +17,12 @@ import org.json.JSONObject;
 
 public class RequestService {
 
-    protected String[] arrayDados;
-    protected String[] jsonKeys;
-    protected String baseUrl = "http://localhost:8080/";
+    private String[] arrayDados;
+    private String[] jsonKeys;
+    private String baseUrl = "http://localhost:8080/";
 
     public RequestService(String request) throws Exception {
         arrayDados = request.split(";");
-
-        switch (arrayDados[0]) {
-            case "cliente" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
-            case "funcionario" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
-            case "departamento" ->
-                jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidadeEstoque", "id"};
-        }
     }
 
     public String execute() {
@@ -43,7 +34,7 @@ public class RequestService {
         }
     }
 
-    protected String requesting() {
+    private String requesting() {
         String responseBody = "";
         String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
         try ( CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
@@ -95,18 +86,32 @@ public class RequestService {
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
-    protected JSONObject getJson(boolean isUpdate) {
+    private JSONObject getJson(boolean isUpdate) {
         JSONObject json = new JSONObject();
-
-        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
-
-        if (isUpdate) {
-            forInteration++;
-        }
-
+        this.renderJsonKeys();
+        int forInteration = this.getJsonForInteration(isUpdate);
         for (int c = 2; c < forInteration; c++) {
             json.put(jsonKeys[c], arrayDados[c]);
         }
         return json;
+    }
+    
+    private void renderJsonKeys(){
+        switch (arrayDados[0]) {
+            case "cliente" ->
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
+            case "funcionario" ->
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
+            case "departamento" ->
+                jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidadeEstoque", "id"};
+        }
+    }
+    
+    private int getJsonForInteration(boolean isUpdate){
+        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
+        if (isUpdate) {
+            forInteration++;
+        }
+        return forInteration;
     }
 }
