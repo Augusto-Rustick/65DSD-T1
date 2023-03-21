@@ -1,16 +1,22 @@
 package View.Departamento;
 
 import Socket.Client;
+import View.Cliente.ViewDeleteCliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ViewDeleteDepartamento extends JFrame {
 
     private final JTextField nomeDeptField;
+    private JSONObject myjson;
 
     public ViewDeleteDepartamento(Client client) {
 
@@ -23,11 +29,22 @@ public class ViewDeleteDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "departamento;DELETE;"+ nomeDeptField.getText()+";";
             try {
-                showMessageDialog(this, client.write(txt));
+                String txt = "departamento;GET;" + nomeDeptField.getText() + ";";
+                String response = client.write(txt);
+                myjson = new JSONObject(response);
+            } catch (JSONException je) {
+                nomeDeptField.setText("Não encontrado!");
+                myjson = new JSONObject("{'nome':'','produto':'','quantidadeEstoque':''}");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    String txt = "departamento;DELETE;" + myjson.get("id").toString();
+                    showMessageDialog(this, client.write(txt));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

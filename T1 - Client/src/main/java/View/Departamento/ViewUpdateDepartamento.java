@@ -12,12 +12,15 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ViewUpdateDepartamento extends JFrame {
 
+    private final JTextField idField;
     private final JTextField nomeField;
     private final JTextField produtoField;
     private final JTextField qntProdutoFiled;
 
     public ViewUpdateDepartamento(Client client) {
 
+        idField = new JTextField(20);
+        idField.setVisible(false);
         JLabel cpfLabel = new JLabel("Nome departamento :");
         nomeField = new JTextField(20);
         nomeField.setFont(nomeField.getFont().deriveFont(16f));
@@ -34,7 +37,7 @@ public class ViewUpdateDepartamento extends JFrame {
         registerButton.setEnabled(false);
 
         findButton.addActionListener(e->{
-            String txt = "departmanto;GET;"+nomeField.getText()+";";
+            String txt = "departamento;GET;"+nomeField.getText()+";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
@@ -45,8 +48,9 @@ public class ViewUpdateDepartamento extends JFrame {
                     myjson = new JSONObject("{'produto':'','quantidade':''}");
                 }
 
+                idField.setText(myjson.get("id").toString());
                 produtoField.setText(myjson.get("produto").toString());
-                qntProdutoFiled.setText(myjson.get("quantidade").toString());
+                qntProdutoFiled.setText(myjson.get("quantidadeEstoque").toString());
                 registerButton.setEnabled(true);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -57,7 +61,7 @@ public class ViewUpdateDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e->{
-            String txt = "departamento;UPDATE;"+nomeField.getText() + ";" + produtoField.getText() + ";" + qntProdutoFiled.getText() + ";";
+            String txt = "departamento;UPDATE;"+nomeField.getText() + ";" + produtoField.getText() + ";" + qntProdutoFiled.getText() + ";"+idField.getText();
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
