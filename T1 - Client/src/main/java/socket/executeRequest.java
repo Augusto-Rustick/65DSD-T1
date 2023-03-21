@@ -33,10 +33,10 @@ public class executeRequest {
 //        testeRemove = "funcionario;Remove;;;;;;853";
 //
         testeInsert = "departamento;Insert;departamentadasso;almas;15;";
-        testeUpdate = "departamento;Update;departamentadassozadoo;almas;15;252";
-        testeGet = "departamento;Get;departamentadassozadoo";
+        testeUpdate = "departamento;Update;departamentadassozadoasdo;almas;15;254";
+        testeGet = "departamento;Get;departamentadassozadoasdo";
         testeList = "departamento;List";
-        testeRemove = "departamento;Remove;;;;;;252";
+        testeRemove = "departamento;Remove;254";
 
         RequestService req;
         try {

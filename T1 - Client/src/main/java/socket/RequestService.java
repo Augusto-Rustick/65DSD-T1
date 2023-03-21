@@ -45,48 +45,47 @@ public class RequestService {
 
     protected String requesting() {
         String responseBody = "";
+        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
         try ( CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             String methodName = "request" + arrayDados[1].toUpperCase();
-            Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class);
-            responseBody = (String) method.invoke(this, httpClient);
+            Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class, String.class);
+            responseBody = (String) method.invoke(this, httpClient, formatedUrl);
         } catch (Exception ex) {
             return ex.getMessage();
         }
         return responseBody;
     }
 
-    public String requestGET(CloseableHttpClient httpClient) throws IOException {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/get/" + arrayDados[2];
+    public String requestGET(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+        formatedUrl += "/" + arrayDados[2];
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
-    public String requestLIST(CloseableHttpClient httpClient) throws IOException {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/list";
+    public String requestLIST(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity());
     }
 
-    public String requestREMOVE(CloseableHttpClient httpClient) throws IOException {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/remove/" + arrayDados[7];
+    public String requestREMOVE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+        formatedUrl += "/" + arrayDados[2];
         HttpDelete request = new HttpDelete(formatedUrl);
         var response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
-    public String requestINSERT(CloseableHttpClient httpClient) throws IOException {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
+    public String requestINSERT(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         return this.requestINSERTandUPDATE(httpClient, formatedUrl, false);
     }
 
-    public String requestUPDATE(CloseableHttpClient httpClient) throws IOException {
-        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
+    public String requestUPDATE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         return this.requestINSERTandUPDATE(httpClient, formatedUrl, true);
     }
 
     private String requestINSERTandUPDATE(CloseableHttpClient httpClient, String formatedUrl, boolean isUpdate) throws IOException {
+        formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
         HttpPost request = new HttpPost(formatedUrl);
         JSONObject json = this.getJson(isUpdate);
         StringEntity params = new StringEntity(json.toString());
