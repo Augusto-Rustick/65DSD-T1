@@ -39,12 +39,12 @@ public class ViewRegistroClientes extends JFrame {
         JButton registerButton = new JButton("Register");
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
-        registerButton.addActionListener(e->{
-            String txt = "cliente;INSERT;"+cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText()+";";
+        registerButton.addActionListener(e -> {
+            String txt = "cliente;INSERT;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + emailField.getText() + ";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                showMessageDialog(this, ex.getMessage()); ;
             }
         });
 

@@ -45,7 +45,7 @@ public class DepartamentoResource {
 		return departamento.get();
 	}
 
-	@DeleteMapping("/departamento/remove/{id}")
+	@DeleteMapping("/departamento/delete/{id}")
 	public void deleteDepartamento(@PathVariable int id) {
 		repo.deleteById(id);
 	}

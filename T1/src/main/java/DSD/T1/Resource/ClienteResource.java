@@ -47,7 +47,7 @@ public class ClienteResource {
 		return cliente.get();
 	}
 
-	@DeleteMapping("/cliente/remove/{id}")
+	@DeleteMapping("/cliente/delete/{id}")
 	public void deleteCliente(@PathVariable int id) {
 		repo.deleteById(id);
 	}

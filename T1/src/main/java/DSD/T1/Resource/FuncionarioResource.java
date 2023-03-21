@@ -45,7 +45,7 @@ public class FuncionarioResource {
 		return funcionario.get();
 	}
 
-	@DeleteMapping("/funcionario/remove/{id}")
+	@DeleteMapping("/funcionario/delete/{id}")
 	public void deleteFuncionario(@PathVariable int id) {
 		repo.deleteById(id);
 	}

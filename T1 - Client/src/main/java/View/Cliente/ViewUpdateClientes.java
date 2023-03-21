@@ -12,6 +12,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ViewUpdateClientes extends JFrame {
 
+    private final JTextField idField;
     private final JTextField cpfField;
     private final JTextField nameField;
     private final JTextField addressField;
@@ -20,6 +21,8 @@ public class ViewUpdateClientes extends JFrame {
 
     public ViewUpdateClientes(Client client) {
 
+        idField = new JTextField(20);
+        idField.setVisible(false);
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
         cpfField.setFont(cpfField.getFont().deriveFont(16f));
@@ -41,18 +44,19 @@ public class ViewUpdateClientes extends JFrame {
         JButton registerButton = new JButton("Register");
         registerButton.setEnabled(false);
 
-        findButton.addActionListener(e->{
-            String txt = "cliente;GET;"+cpfField.getText()+";";
+        findButton.addActionListener(e -> {
+            String txt = "cliente;GET;" + cpfField.getText() + ";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
-                try{
+                try {
                     myjson = new JSONObject(response);
-                }catch(JSONException je){
+                } catch (JSONException je) {
                     cpfField.setText("Não encontrado!");
                     myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','email':''}");
                 }
 
+                idField.setText(myjson.get("id").toString());
                 nameField.setText(myjson.get("nome").toString());
                 addressField.setText(myjson.get("endereco").toString());
                 phoneField.setText(myjson.get("telefone").toString());
@@ -63,11 +67,10 @@ public class ViewUpdateClientes extends JFrame {
             }
         });
 
-
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
-        registerButton.addActionListener(e->{
-            String txt = "cliente;UPDATE;"+cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" +  phoneField.getText() + ";" +  emailField.getText()+";";
+        registerButton.addActionListener(e -> {
+            String txt = "cliente;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + emailField.getText() + ";" + idField.getText();
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {

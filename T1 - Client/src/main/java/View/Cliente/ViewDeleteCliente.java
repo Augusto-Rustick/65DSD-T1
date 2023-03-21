@@ -5,12 +5,17 @@ import Socket.Client;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ViewDeleteCliente extends JFrame {
 
     private final JTextField cpfField;
+    private JSONObject myjson;
 
     public ViewDeleteCliente(Client client) {
 
@@ -23,8 +28,21 @@ public class ViewDeleteCliente extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;DELETE;"+cpfField.getText()+";";
             try {
+                String txt = "cliente;GET;" + cpfField.getText() + ";";
+                String response = client.write(txt);
+                myjson = new JSONObject(response);
+            } catch (JSONException je) {
+                cpfField.setText("Não encontrado!");
+                myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','email':''}");
+            } catch (IOException ex) {
+                Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(myjson.toString());
+            
+            try {
+                String txt = "cliente;DELETE;" + myjson.get("id").toString();
+                System.out.println(txt);
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

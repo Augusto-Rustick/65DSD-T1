@@ -29,8 +29,10 @@ public class RequestService {
         try {
             return this.requesting();
         } catch (Exception ex) {
-            Logger.getLogger(RequestService.class.getName()).log(Level.SEVERE, null, ex);
-            return "Erro ao tentar fazer a consulta";
+            if (arrayDados[0] != null) {
+                return "Erro ao tentar fazer a requisição de tipo " + arrayDados[0];
+            }
+            return "Erro ao informar o tipo de requisição";
         }
     }
 
@@ -42,7 +44,7 @@ public class RequestService {
             Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class, String.class);
             responseBody = (String) method.invoke(this, httpClient, formatedUrl);
         } catch (Exception ex) {
-            return ex.getMessage();
+            return "Erro ao tentar fazer a requisição de tipo " + arrayDados[1];
         }
         return responseBody;
     }
@@ -51,39 +53,51 @@ public class RequestService {
         formatedUrl += "/" + arrayDados[2];
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
-        return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        if (response.getEntity() != null) {
+            return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        }
+        return response.getStatusLine().toString();
     }
 
     public String requestLIST(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         HttpGet request = new HttpGet(formatedUrl);
         var response = httpClient.execute(request);
-        return EntityUtils.toString(response.getEntity());
+        if (response.getEntity() != null) {
+            return EntityUtils.toString(response.getEntity());
+        }
+        return response.getStatusLine().toString();
     }
 
-    public String requestREMOVE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
+    public String requestDELETE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         formatedUrl += "/" + arrayDados[2];
         HttpDelete request = new HttpDelete(formatedUrl);
         var response = httpClient.execute(request);
-        return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        if (response.getEntity() != null) {
+            return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        }
+        return response.getStatusLine().toString();
     }
 
     public String requestINSERT(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        return this.requestINSERTandUPDATE(httpClient, formatedUrl, false);
+        return this.requestINSERTandUPDATE(httpClient, false);
     }
 
     public String requestUPDATE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        return this.requestINSERTandUPDATE(httpClient, formatedUrl, true);
+        return this.requestINSERTandUPDATE(httpClient, true);
     }
 
-    private String requestINSERTandUPDATE(CloseableHttpClient httpClient, String formatedUrl, boolean isUpdate) throws IOException {
-        formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
+    private String requestINSERTandUPDATE(CloseableHttpClient httpClient, boolean isUpdate) throws IOException {
+        String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
         HttpPost request = new HttpPost(formatedUrl);
         JSONObject json = this.getJson(isUpdate);
         StringEntity params = new StringEntity(json.toString());
         request.addHeader("content-type", "application/json");
         request.setEntity(params);
         var response = httpClient.execute(request);
-        return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        if (response.getEntity() != null) {
+            return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        }
+        return response.getStatusLine().toString();
     }
 
     private JSONObject getJson(boolean isUpdate) {
@@ -95,8 +109,8 @@ public class RequestService {
         }
         return json;
     }
-    
-    private void renderJsonKeys(){
+
+    private void renderJsonKeys() {
         switch (arrayDados[0]) {
             case "cliente" ->
                 jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
@@ -106,8 +120,8 @@ public class RequestService {
                 jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidadeEstoque", "id"};
         }
     }
-    
-    private int getJsonForInteration(boolean isUpdate){
+
+    private int getJsonForInteration(boolean isUpdate) {
         int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
         if (isUpdate) {
             forInteration++;
