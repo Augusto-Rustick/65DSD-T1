@@ -14,24 +14,30 @@ import java.util.logging.Logger;
 public class executeRequest {
 
     public static void main(String[] args) {
-        String testeInsert = "cliente;Insert;12545625435;Augusto;ruaruaruaaaa;48984827115;teste@gmail.com;";
-        String testeGet = "cliente;Get;12545625435;;;;;404";
-        String testeList = "cliente;List;;;;;;";
-        String testeRemove = "cliente;Remove;12545625435;;;;;502";
-        String testeUpdate = "cliente;Insert;12545625435;Augusto;ruaruarua;48984827115;teste@gmail.com;402";
+        String testeInsert = "";
+        String testeUpdate = "";
+        String testeGet = "";
+        String testeList = "";
+        String testeRemove = "";
+//
+//        testeInsert = "cliente;Insert;61616464684642;Augusto;ruaruaruaaaa;48984827115;teste@gmail.com;";
+//        testeUpdate = "cliente;Update;61616464684642;Augustooooo;ruaruaruaaaa;48984827115;teste@gmail.com;752";
+//        testeGet = "cliente;Get;12545625435";
+//        testeList = "cliente;List";
+//        testeRemove = "cliente;Remove;12545625435;;;;;752";
+//
+//        testeInsert = "funcionario;Insert;123423131541235;Augusto;ruaruaruaaaa;asgfsaf;15;";
+//        testeUpdate = "funcionario;Update;123423131541235;Augustooooooo;ruaruaruaaaa;asgfsaf;15;807";
+//        testeGet = "funcionario;Get;123423131541235";
+//        testeList = "funcionario;List";
+//        testeRemove = "funcionario;Remove;;;;;;853";
+//
+        testeInsert = "departamento;Insert;departamentadasso;almas;15;";
+        testeUpdate = "departamento;Update;departamentadassozadoo;almas;15;252";
+        testeGet = "departamento;Get;departamentadassozadoo";
+        testeList = "departamento;List";
+        testeRemove = "departamento;Remove;;;;;;252";
 
-//        String testeInsert = "funcionario;Insert;12545625435;Augusto;ruaruaruaaaa;asgfsaf;15;";
-//        String testeGet = "funcionario;Get;;;;;;452";
-//        String testeList = "funcionario;List;;;;;;";
-//        String testeRemove = "funcionario;Remove;;;;;;402";
-//        String testeUpdate = "funcionario;Insert;12545625435;Augusto;ruaruarua;asgfsaf;25;402";
-//
-//        String testeInsert = "departamento;Insert;departamentado;almas;15;";
-//        String testeGet = "departamento;Get;;;;;;2";
-//        String testeList = "departamento;List;;;;;;";
-//        String testeRemove = "departamento;Remove;;;;;;54";
-//        String testeUpdate = "departamento;Insert;departamentado;almas;15;";
-//
         RequestService req;
         try {
             req = new RequestService(testeRemove);

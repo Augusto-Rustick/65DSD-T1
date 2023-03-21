@@ -25,7 +25,7 @@ public class ClienteResource {
 		this.repo = repo;
 	}
 
-	@PostMapping("/cliente/insert")
+	@PostMapping("/cliente/insertOrUpdate")
 	public ResponseEntity<Cliente> createCliente(@Valid @RequestBody Cliente cliente) {
 		Cliente savedCliente = repo.save(cliente);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
@@ -51,6 +51,5 @@ public class ClienteResource {
 	public void deleteCliente(@PathVariable int id) {
 		repo.deleteById(id);
 	}
-	
 
 }

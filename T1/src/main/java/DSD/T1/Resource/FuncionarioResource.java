@@ -23,7 +23,7 @@ public class FuncionarioResource {
 		this.repo = repo;
 	}
 
-	@PostMapping("/funcionario/insert")
+	@PostMapping("/funcionario/insertOrUpdate")
 	public ResponseEntity<Funcionario> createCliente(@Valid @RequestBody Funcionario funcionario) {
 		Funcionario savedFuncionario = repo.save(funcionario);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
@@ -36,11 +36,11 @@ public class FuncionarioResource {
 		return repo.findAll();
 	}
 
-	@GetMapping("/funcionario/get/{id}")
-	public Funcionario getFuncionario(@PathVariable int id) throws Exception {
-		Optional<Funcionario> funcionario = repo.findById(id);
+	@GetMapping("/funcionario/get/{cpf}")
+	public Funcionario getFuncionario(@PathVariable String cpf) throws Exception {
+		Optional<Funcionario> funcionario = Optional.ofNullable(repo.findByCpf(cpf));
 		if (funcionario.isEmpty()) {
-			throw new Exception("erro no id: " + id);
+			throw new Exception("erro no cpf : " + cpf);
 		}
 		return funcionario.get();
 	}
