@@ -42,7 +42,8 @@ public class executeRequest {
 
         RequestService req;
         try {
-            req = new RequestService(testeInsert);
+            req = new RequestService();
+            req.setRequest(testeInsert);
             String retorno = req.execute();
             System.out.println(retorno);
         } catch (Exception ex) {

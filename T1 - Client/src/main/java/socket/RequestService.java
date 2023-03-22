@@ -21,10 +21,7 @@ public class RequestService {
     private String[] arrayDados;
     private String[] jsonKeys;
     private String baseUrl = "http://localhost:8080/";
-
-    public RequestService(String request) throws Exception {
-        arrayDados = request.split(";");
-    }
+    private String request;
 
     public String execute() {
         try {
@@ -40,15 +37,15 @@ public class RequestService {
     private String requesting() {
         String responseBody = "";
         String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
-        try ( CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             String methodName = "request" + arrayDados[1].toUpperCase();
             Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class, String.class);
             responseBody = (String) method.invoke(this, httpClient, formatedUrl);
         } catch (Exception ex) {
             return "Erro ao tentar fazer a requisição de tipo " + arrayDados[1];
         }
-        if (responseBody.isEmpty()){
-            return "A operração de "+ arrayDados[1] + " foi um sucesso!";
+        if (responseBody.isEmpty()) {
+            return "A operração de " + arrayDados[1] + " foi um sucesso!";
         }
         return responseBody;
     }
@@ -134,5 +131,23 @@ public class RequestService {
             forInteration++;
         }
         return forInteration;
+    }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) throws Exception {
+        this.request = request;
+        this.splitRequest();
+    }
+
+    private void splitRequest() throws Exception {
+        arrayDados = this.getRequest().split(";");
+    }
+
+    public void resetRequestService() {
+        this.request = "";
+        arrayDados = new String[8];
     }
 }

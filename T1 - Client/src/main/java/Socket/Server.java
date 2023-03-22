@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 public class Server {
     private ServerSocket serverSocket;
     private volatile boolean keepRunning = true;
+    private RequestService requester;
 
     public Server(int port) {
         try {
@@ -71,9 +72,13 @@ public class Server {
     }
 
     public void handleRequest(String request, OutputStream out) throws Exception {
-        RequestService req = new RequestService(request);
-        out.write(req.execute().getBytes());
+        if (requester == null) {
+            requester = new RequestService();
+        }
+        requester.setRequest(request);
+        out.write(requester.execute().getBytes());
         out.flush();
+        requester.resetRequestService();
     }
 
 }
