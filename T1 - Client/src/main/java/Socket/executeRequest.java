@@ -20,9 +20,9 @@ public class executeRequest {
         String testeList = "";
         String testeRemove = "";
 //
-        testeInsert = "transportador;Insert;15616165165165165;Augusto;ruaruaruaaaa;48984827115;15;";
-        testeUpdate = "transportador;Update;15616165165165165;Augustooooo;ruaruaruaaaa;48984827115;25;2";
-        testeGet = "transportador;Get;15616165165165165";
+        testeInsert = "transportador;Insert;1561616515165165165;Augusto;ruaruaruaaaa;48984827115;12;2;";
+        testeUpdate = "transportador;Update;1561616515165165165;Augustooooo;ruaruaruaaaa;48984827115;25;2;103";
+        testeGet = "transportador;Get;1561616515165165165";
         testeList = "transportador;List";
         testeRemove = "transportador;Delete;2";
 //
@@ -40,7 +40,7 @@ public class executeRequest {
 
         RequestService req;
         try {
-            req = new RequestService(testeRemove);
+            req = new RequestService(testeGet);
             String retorno = req.execute();
             System.out.println(retorno);
         } catch (Exception ex) {

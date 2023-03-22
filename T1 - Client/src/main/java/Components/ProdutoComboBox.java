@@ -11,8 +11,11 @@ import java.util.List;
 
 public class ProdutoComboBox extends JComboBox<Produto> {
 
-    public ProdutoComboBox(Client c) throws IOException {
+    private final int pId;
+
+    public ProdutoComboBox(Client c,int depID) throws IOException {
         super();
+        this.pId = depID;
         fillDepComboBox(c);
     }
 
@@ -23,7 +26,8 @@ public class ProdutoComboBox extends JComboBox<Produto> {
         Produto[] list = (Produto[]) objectMapper.readValue(json.get("data").toString(), Produto[].class);
         ArrayList<Produto> deps = new ArrayList<>(List.of(list));
         for (Produto dep : deps) {
-            this.addItem(dep);
+            if (dep.getId() == pId)
+                this.addItem(dep);
         }
     }
 

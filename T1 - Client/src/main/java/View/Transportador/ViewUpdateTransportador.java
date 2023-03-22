@@ -13,6 +13,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class ViewUpdateTransportador extends JFrame {
 
     private final JTextField idField;
+    private final JTextField idDepField;
     private final JTextField cpfField;
     private final JTextField nameField;
     private final JTextField addressField;
@@ -23,6 +24,8 @@ public class ViewUpdateTransportador extends JFrame {
 
         idField = new JTextField(20);
         idField.setVisible(false);
+        idDepField = new JTextField(20);
+        idDepField.setVisible(false);
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
         cpfField.setFont(cpfField.getFont().deriveFont(16f));
@@ -56,6 +59,7 @@ public class ViewUpdateTransportador extends JFrame {
                     myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','carregamento':''}");
                 }
 
+                idDepField.setText(myjson.get("departamento").toString());
                 idField.setText(myjson.get("id").toString());
                 nameField.setText(myjson.get("nome").toString());
                 addressField.setText(myjson.get("endereco").toString());
@@ -70,7 +74,9 @@ public class ViewUpdateTransportador extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "transportador;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + carregamentoField.getText() + ";" + idField.getText();
+            String txt = "transportador;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";"
+                    + addressField.getText() + ";" + phoneField.getText() + ";" + carregamentoField.getText() + ";" + idField.getText() + ";" + idDepField.getText() + ";";
+            System.out.println(txt);
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
