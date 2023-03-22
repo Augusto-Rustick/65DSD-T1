@@ -1,4 +1,4 @@
-package View.Cliente;
+package View.Transportador;
 
 import Socket.Client;
 import Components.DepartamentoComboBox;
@@ -9,17 +9,17 @@ import java.io.IOException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ViewRegistroClientes extends JFrame {
+public class ViewRegistroTransportador extends JFrame {
 
     private final JTextField cpfField;
     private final JTextField nameField;
     private final JTextField addressField;
     private final JTextField phoneField;
-    private final JTextField emailField;
+    private final JTextField carregamentoField;
     private final DepartamentoComboBox departmentCb;
 
 
-    public ViewRegistroClientes(Client client) throws IOException {
+    public ViewRegistroTransportador(Client client) throws IOException {
 
         super("Register Clients");
 
@@ -35,9 +35,9 @@ public class ViewRegistroClientes extends JFrame {
         JLabel phoneLabel = new JLabel("Phone Number:");
         phoneField = new JTextField(20);
         phoneField.setFont(phoneField.getFont().deriveFont(16f));
-        JLabel emailLabel = new JLabel("Email:");
-        emailField = new JTextField(20);
-        emailField.setFont(emailField.getFont().deriveFont(16f));
+        JLabel carregamentoLabel = new JLabel("Carregamento:");
+        carregamentoField = new JTextField(20);
+        carregamentoField.setFont(carregamentoField.getFont().deriveFont(16f));
         JLabel departmentCbLabel = new JLabel("Departamento:");
         departmentCb = new DepartamentoComboBox(client);
         departmentCb.setFont(departmentCb.getFont().deriveFont(16f));
@@ -47,11 +47,11 @@ public class ViewRegistroClientes extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;INSERT;" + cpfField.getText().replace(";", "") + ";"
+            String txt = "transportador;INSERT;" + cpfField.getText().replace(";", "") + ";"
                     + nameField.getText().replace(";", "") + ";"
                     + addressField.getText().replace(";", "") + ";"
                     + phoneField.getText().replace(";", "") + ";"
-                    + emailField.getText().replace(";", "") + ";"
+                    + carregamentoField.getText().replace(";", "") + ";"
                     + departmentCb.getId() + ";";
             System.out.println(txt);
             try {
@@ -88,9 +88,9 @@ public class ViewRegistroClientes extends JFrame {
         formPanel.add(phoneField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
-        formPanel.add(emailLabel, gbc);
+        formPanel.add(carregamentoLabel, gbc);
         gbc.gridx = 1;
-        formPanel.add(emailField, gbc);
+        formPanel.add(carregamentoField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
         formPanel.add(departmentCbLabel, gbc);
@@ -101,7 +101,7 @@ public class ViewRegistroClientes extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("registraclientes");
+        getContentPane().setName("registratransportadoress");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

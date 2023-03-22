@@ -1,9 +1,9 @@
 package View;
 
-import View.Cliente.ViewConsultaCliente;
-import View.Cliente.ViewDeleteCliente;
-import View.Cliente.ViewRegistroClientes;
-import View.Cliente.ViewUpdateClientes;
+import View.Transportador.ViewConsultaTransportador;
+import View.Transportador.ViewDeleteTransportador;
+import View.Transportador.ViewRegistroTransportador;
+import View.Transportador.ViewUpdateTransportador;
 import Components.CustomJMenuItem;
 import Socket.Client;
 import View.Compra.ViewCompra;
@@ -23,21 +23,21 @@ import java.io.IOException;
 
 public class App extends JFrame {
 
-    JMenu clienteOptions = new JMenu("Cliente");
+    JMenu transportadorOptions = new JMenu("Transportador");
     JMenu funcionarioOptions = new JMenu("Funcionario");
     JMenu departamentoOptions = new JMenu("Departamento");
     JMenu comprarOptions = new JMenu("Comprar");
     Client client;
 
-    private void handleClienteOptions(JMenuBar menuBar, JPanel panel) throws IOException {
+    private void handleTransportadorOptions(JMenuBar menuBar, JPanel panel) throws IOException {
 
-        clienteOptions = new JMenu("Cliente");
+        transportadorOptions = new JMenu("Transportador");
 
-        clienteOptions.add(new CustomJMenuItem(this, panel, "New", new ViewRegistroClientes(client).getContentPane()));
-        clienteOptions.add(new CustomJMenuItem(this, panel, "See one", new ViewConsultaCliente(client).getContentPane()));
-        clienteOptions.add(new CustomJMenuItem(this, panel, "Update", new ViewUpdateClientes(client).getContentPane()));
-        clienteOptions.add(new CustomJMenuItem(this, panel, "Delete", new ViewDeleteCliente(client).getContentPane()));
-        menuBar.add(clienteOptions);
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "New", new ViewRegistroTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "See one", new ViewConsultaTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Update", new ViewUpdateTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Delete", new ViewDeleteTransportador(client).getContentPane()));
+        menuBar.add(transportadorOptions);
 
     }
 
@@ -79,7 +79,7 @@ public class App extends JFrame {
         button.addActionListener(e -> {
             try {
                 client = new Client("localhost", 80, 9999);
-                handleClienteOptions(menuBar, contentPane);
+                handleTransportadorOptions(menuBar, contentPane);
                 handleFuncionarioOptions(menuBar, contentPane);
                 handleDepartamentoOptions(menuBar, contentPane);
                 handleBuyOptions(menuBar, contentPane);

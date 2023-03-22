@@ -1,4 +1,4 @@
-package View.Cliente;
+package View.Transportador;
 
 import Socket.Client;
 
@@ -6,12 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class ViewConsultaCliente extends JFrame {
+public class ViewConsultaTransportador extends JFrame {
 
     private final JTextField cpfField;
     private final JTextArea returnField;
 
-    public ViewConsultaCliente(Client client) {
+    public ViewConsultaTransportador(Client client) {
 
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
@@ -27,7 +27,7 @@ public class ViewConsultaCliente extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;GET;" + cpfField.getText() + ";";
+            String txt = "transportador;GET;" + cpfField.getText() + ";";
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {
@@ -54,7 +54,7 @@ public class ViewConsultaCliente extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("consultaclientes");
+        getContentPane().setName("consultatransportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

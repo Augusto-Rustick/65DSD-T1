@@ -1,4 +1,4 @@
-package View.Cliente;
+package View.Transportador;
 
 import Socket.Client;
 import org.json.JSONException;
@@ -10,16 +10,16 @@ import java.io.IOException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ViewUpdateClientes extends JFrame {
+public class ViewUpdateTransportador extends JFrame {
 
     private final JTextField idField;
     private final JTextField cpfField;
     private final JTextField nameField;
     private final JTextField addressField;
     private final JTextField phoneField;
-    private final JTextField emailField;
+    private final JTextField carregamentoField;
 
-    public ViewUpdateClientes(Client client) {
+    public ViewUpdateTransportador(Client client) {
 
         idField = new JTextField(20);
         idField.setVisible(false);
@@ -35,9 +35,9 @@ public class ViewUpdateClientes extends JFrame {
         JLabel phoneLabel = new JLabel("Phone Number:");
         phoneField = new JTextField(20);
         phoneField.setFont(phoneField.getFont().deriveFont(16f));
-        JLabel emailLabel = new JLabel("Email:");
-        emailField = new JTextField(20);
-        emailField.setFont(emailField.getFont().deriveFont(16f));
+        JLabel carregamentoLabel = new JLabel("Carregamento:");
+        carregamentoField = new JTextField(20);
+        carregamentoField.setFont(carregamentoField.getFont().deriveFont(16f));
 
         JButton findButton = new JButton("Search");
         findButton.setFont(findButton.getFont().deriveFont(16f));
@@ -45,7 +45,7 @@ public class ViewUpdateClientes extends JFrame {
         registerButton.setEnabled(false);
 
         findButton.addActionListener(e -> {
-            String txt = "cliente;GET;" + cpfField.getText() + ";";
+            String txt = "transportador;GET;" + cpfField.getText() + ";";
             try {
                 String response = client.write(txt);
                 JSONObject myjson;
@@ -53,14 +53,14 @@ public class ViewUpdateClientes extends JFrame {
                     myjson = new JSONObject(response);
                 } catch (JSONException je) {
                     cpfField.setText("Não encontrado!");
-                    myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','email':''}");
+                    myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','carregamento':''}");
                 }
 
                 idField.setText(myjson.get("id").toString());
                 nameField.setText(myjson.get("nome").toString());
                 addressField.setText(myjson.get("endereco").toString());
                 phoneField.setText(myjson.get("telefone").toString());
-                emailField.setText(myjson.get("email").toString());
+                carregamentoField.setText(myjson.get("carregamento").toString());
                 registerButton.setEnabled(true);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -70,7 +70,7 @@ public class ViewUpdateClientes extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "cliente;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + emailField.getText() + ";" + idField.getText();
+            String txt = "transportador;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + phoneField.getText() + ";" + carregamentoField.getText() + ";" + idField.getText();
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
@@ -104,9 +104,9 @@ public class ViewUpdateClientes extends JFrame {
         formPanel.add(phoneField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
-        formPanel.add(emailLabel, gbc);
+        formPanel.add(carregamentoLabel, gbc);
         gbc.gridx = 1;
-        formPanel.add(emailField, gbc);
+        formPanel.add(carregamentoField, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
@@ -116,7 +116,7 @@ public class ViewUpdateClientes extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("updateclientes");
+        getContentPane().setName("updatetransportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

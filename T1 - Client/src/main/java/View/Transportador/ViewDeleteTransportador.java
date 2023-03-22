@@ -1,4 +1,4 @@
-package View.Cliente;
+package View.Transportador;
 
 import Socket.Client;
 
@@ -12,12 +12,12 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewDeleteCliente extends JFrame {
+public class ViewDeleteTransportador extends JFrame {
 
     private final JTextField cpfField;
     private JSONObject myjson;
 
-    public ViewDeleteCliente(Client client) {
+    public ViewDeleteTransportador(Client client) {
 
         JLabel cpfLabel = new JLabel("CPF:");
         cpfField = new JTextField(20);
@@ -29,17 +29,17 @@ public class ViewDeleteCliente extends JFrame {
 
         registerButton.addActionListener(e -> {
             try {
-                String txt = "cliente;GET;" + cpfField.getText() + ";";
+                String txt = "transportador;GET;" + cpfField.getText() + ";";
                 String response = client.write(txt);
                 myjson = new JSONObject(response);
             } catch (JSONException je) {
                 cpfField.setText("Não encontrado!");
-                myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','email':''}");
+                myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','carregamento':''}");
             } catch (IOException ex) {
-                Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ViewDeleteTransportador.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
-                    String txt = "cliente;DELETE;" + myjson.get("id").toString();
+                    String txt = "transportador;DELETE;" + myjson.get("id").toString();
                     showMessageDialog(this, client.write(txt));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -61,7 +61,7 @@ public class ViewDeleteCliente extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("deletecliente");
+        getContentPane().setName("deletetransportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

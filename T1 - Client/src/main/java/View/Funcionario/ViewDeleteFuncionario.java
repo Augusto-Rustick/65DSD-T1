@@ -1,7 +1,7 @@
 package View.Funcionario;
 
 import Socket.Client;
-import View.Cliente.ViewDeleteCliente;
+import View.Transportador.ViewDeleteTransportador;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +37,7 @@ public class ViewDeleteFuncionario extends JFrame {
                 cpfField.setText("Não encontrado!");
                 myjson = new JSONObject("{'nome':'','endereco':'','ctps':'','quantidadeVendas':''}");
             } catch (IOException ex) {
-                Logger.getLogger(ViewDeleteCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ViewDeleteTransportador.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     String txt = "funcionario;DELETE;" + myjson.get("id").toString();
