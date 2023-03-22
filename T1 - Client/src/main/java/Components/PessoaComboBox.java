@@ -14,13 +14,6 @@ public class PessoaComboBox extends JComboBox<Pessoa> {
     public PessoaComboBox(Client c, PessoaTipo p) throws IOException {
         super();
         fillDepComboBox(c, p);
-        this.addActionListener(e->{
-            try {
-                fillDepComboBox(c, p);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
 
     private void fillDepComboBox(Client client, PessoaTipo pessoa) throws IOException {

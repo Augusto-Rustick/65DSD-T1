@@ -14,13 +14,6 @@ public class DepartamentoComboBox extends JComboBox<Departamento> {
     public DepartamentoComboBox(Client c) throws IOException {
         super();
         fillDepComboBox(c);
-        this.addActionListener(e->{
-            try {
-                fillDepComboBox(c);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
 
     private void fillDepComboBox(Client client) throws IOException {
