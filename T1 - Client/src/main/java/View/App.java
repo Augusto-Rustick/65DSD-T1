@@ -6,7 +6,7 @@ import View.Transportador.ViewRegistroTransportador;
 import View.Transportador.ViewUpdateTransportador;
 import Components.CustomJMenuItem;
 import Socket.Client;
-import View.Compra.ViewCompra;
+import View.Estoque.ViewSubtrair;
 import View.Departamento.ViewConsultaDepartamento;
 import View.Departamento.ViewDeleteDepartamento;
 import View.Departamento.ViewRegistroDepartamento;
@@ -69,7 +69,7 @@ public class App extends JFrame {
 
         comprarOptions = new JMenu("Comprar");
 
-        comprarOptions.add(new CustomJMenuItem(this, panel, "Produto", new ViewCompra(client).getContentPane()));
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Produto", new ViewSubtrair(client).getContentPane()));
         menuBar.add(comprarOptions);
 
     }

@@ -16,8 +16,8 @@ public class Transportador extends Pessoa {
 		super();
 	}
 
-	public Transportador(String cpf, String nome, String endereco, String telefone, int carregamento) {
-		super(cpf, nome, endereco);
+	public Transportador(String cpf, String nome, String endereco, String telefone, int carregamento, int departamento_id) {
+		super(cpf, nome, endereco, departamento_id);
 		this.telefone = telefone;
 		this.carregamento = carregamento;
 	}

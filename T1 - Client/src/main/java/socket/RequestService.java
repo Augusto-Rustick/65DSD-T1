@@ -3,6 +3,7 @@ package Socket;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -107,22 +108,24 @@ public class RequestService {
         for (int c = 2; c < forInteration; c++) {
             json.put(jsonKeys[c], arrayDados[c]);
         }
+        System.out.println(Arrays.toString(arrayDados));
+        System.out.println(json);
         return json;
     }
 
     private void renderJsonKeys() {
         switch (arrayDados[0]) {
             case "transportador" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "carregamento", "id"};
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "carregamento", "departamento_id", "id"};
             case "funcionario" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "departamento_id", "id"};
             case "departamento" ->
                 jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidadeEstoque", "id"};
         }
     }
 
     private int getJsonForInteration(boolean isUpdate) {
-        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
+        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 8;
         if (isUpdate) {
             forInteration++;
         }

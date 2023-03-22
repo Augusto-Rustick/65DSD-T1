@@ -1,9 +1,6 @@
 package DSD.T1.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -19,16 +16,18 @@ public abstract class Pessoa {
 	protected String nome;
 	@Size(min = 5, message = "O telefone deve ter pelo menos 5 caracteres")
 	protected String endereco;
+	protected Integer departamento_id;
 
 	public Pessoa() {
 
 	}
 
-	public Pessoa(String cpf, String nome, String endereco) {
+	public Pessoa(String cpf, String nome, String endereco, Integer departamento_id) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.endereco = endereco;
+		this.departamento_id = departamento_id;
 	}
 
 	public Integer getId() {
@@ -63,8 +62,16 @@ public abstract class Pessoa {
 		this.endereco = endereco;
 	}
 
+	public Integer getDepartamento() {
+		return departamento_id;
+	}
+
+	public void setDepartamento(Integer departamento) {
+		this.departamento_id = departamento;
+	}
+
 	@Override
 	public String toString() {
-		return "Pessoa [cpf=" + cpf + ", nome=" + nome + ", endereco=" + endereco + "]";
+		return "Pessoa [cpf=" + cpf + ", nome=" + nome + ", endereco=" + endereco + ", departamento_id=" + departamento_id + "]";
 	}
 }
