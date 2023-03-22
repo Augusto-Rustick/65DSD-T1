@@ -13,42 +13,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import DSD.T1.Entity.Cliente;
-import DSD.T1.Repository.ClienteRepository;
+import DSD.T1.Entity.Transportador;
+import DSD.T1.Repository.TransportadorRepository;
 import jakarta.validation.Valid;
 
 @RestController
-public class ClienteResource {
-	private ClienteRepository repo;
+public class TransportadorResource {
+	private TransportadorRepository repo;
 
-	public ClienteResource(ClienteRepository repo) {
+	public TransportadorResource(TransportadorRepository repo) {
 		this.repo = repo;
 	}
 
-	@PostMapping("/cliente/insertOrUpdate")
-	public ResponseEntity<Cliente> createCliente(@Valid @RequestBody Cliente cliente) {
-		Cliente savedCliente = repo.save(cliente);
+	@PostMapping("/transportador/insertOrUpdate")
+	public ResponseEntity<Transportador> createTransportador(@Valid @RequestBody Transportador transportador) {
+		Transportador savedTransportador= repo.save(transportador);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id)")
-				.buildAndExpand(savedCliente.getId()).toUri();
+				.buildAndExpand(savedTransportador.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 
-	@GetMapping("/cliente/list")
-	public List<Cliente> allCliente() {
+	@GetMapping("/transportador/list")
+	public List<Transportador> allTransportador() {
 		return repo.findAll();
 	}
 
-	@GetMapping("/cliente/get/{cpf}")
-	public Cliente getCliente(@PathVariable String cpf) throws Exception {
-		Optional<Cliente> cliente = Optional.ofNullable(repo.findByCpf(cpf));
-		if (cliente.isEmpty()) {
+	@GetMapping("/transportador/get/{cpf}")
+	public Transportador getTransportador(@PathVariable String cpf) throws Exception {
+		Optional<Transportador> transportador = Optional.ofNullable(repo.findByCpf(cpf));
+		if (transportador.isEmpty()) {
 			throw new Exception("erro no cpf: " + cpf);
 		}
-		return cliente.get();
+		return transportador.get();
 	}
 
-	@DeleteMapping("/cliente/delete/{id}")
-	public void deleteCliente(@PathVariable int id) {
+	@DeleteMapping("/transportador/delete/{id}")
+	public void deleteTransportador(@PathVariable int id) {
 		repo.deleteById(id);
 	}
 

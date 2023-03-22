@@ -5,21 +5,21 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Cliente extends Pessoa {
+public class Transportador extends Pessoa {
 
 	@Size(min = 9, message = "O telefone deve ter pelo menos 9 caracteres")
 	private String telefone;
 	@NotNull
-	protected String email;
+	protected int carregamento;
 
-	public Cliente() {
+	public Transportador() {
 		super();
 	}
 
-	public Cliente(String cpf, String nome, String endereco, String telefone, String email) {
+	public Transportador(String cpf, String nome, String endereco, String telefone, int carregamento) {
 		super(cpf, nome, endereco);
 		this.telefone = telefone;
-		this.email = email;
+		this.carregamento = carregamento;
 	}
 
 	public String getTelefone() {
@@ -30,17 +30,17 @@ public class Cliente extends Pessoa {
 		this.telefone = telefone;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getCarregamento() {
+		return carregamento;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCarregamento(int carregamento) {
+		this.carregamento = carregamento;
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [telefone=" + telefone + ", email=" + email + "]";
+		return "Cliente [telefone=" + telefone + ", email=" + carregamento + "]";
 	}
 
 }
