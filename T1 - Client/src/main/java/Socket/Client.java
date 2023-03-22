@@ -22,7 +22,10 @@ public class Client {
         out.flush();
         out.write(req.getBytes());
         dataBytes = in.read(data);
-        return new String(data, 0, dataBytes);
+        String reponse = new String(data, 0, dataBytes);
+        if(reponse.equals("exit"))
+            System.exit(1);
+        return reponse;
     }
 
     private void connect(String host, int port, int timeout) throws IOException {

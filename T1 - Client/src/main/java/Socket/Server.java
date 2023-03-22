@@ -2,12 +2,12 @@ package Socket;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private ServerSocket serverSocket;
-    private InputStream in;
-    private OutputStream out;
-    private boolean isAlive = true;
+    private volatile boolean keepRunning = true;
 
     public Server(int port) {
         try {
@@ -19,43 +19,61 @@ public class Server {
         }
     }
 
-    public void run() {
-        while (isAlive) {
+    public void run(int maxConnections) {
+        ExecutorService executorService = Executors.newFixedThreadPool(maxConnections);
+        while (keepRunning) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                in = clientSocket.getInputStream();
-                out = clientSocket.getOutputStream();
-                out.write("STARTED".getBytes());
-                out.flush();
 
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress().getHostName());
 
-                byte[] data = new byte[1024];
-                int dataBytes;
+                Runnable connectionHandler = () -> {
+                    try (InputStream in = clientSocket.getInputStream();
+                         OutputStream out = clientSocket.getOutputStream()) {
+                        out.write("STARTED".getBytes());
+                        out.flush();
 
-                while (isAlive) {
-                    dataBytes = in.read(data);
-                    handleRequest(new String(data, 0, dataBytes));
-                }
+                        byte[] data = new byte[1024];
+                        int dataBytes;
+
+                        while (keepRunning) {
+                            try {
+                                dataBytes = in.read(data);
+                                String request = new String(data, 0, dataBytes);
+                                if (request.equals("kill")) {
+                                    keepRunning = false;
+                                    out.write("exit".getBytes());
+                                    System.exit(1);
+                                    break;
+                                }
+                                handleRequest(request, out);
+                            } catch (Exception e) {
+                                System.out.println("Failed to read data from client socket or client disconnect.");
+                                break;
+                            }
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Failed to open input/output streams for client socket.");
+                    } finally {
+                        try {
+                            clientSocket.close();
+                        } catch (IOException e) {
+                            System.out.println("Failed to close client socket.");
+                        }
+                    }
+                };
+                executorService.submit(connectionHandler);
             } catch (Exception e) {
-                System.out.println("Failed to accept client connection or client disconnected.");
+                System.out.println("Failed to accept client connection.");
             }
         }
+        executorService.shutdown();
     }
 
-    public void handleRequest(String request) throws Exception {
-        if (request.equals("exit")) {
-            isAlive = false;
-            out.write("STOPPED".getBytes());
-        }
+    public void handleRequest(String request, OutputStream out) throws Exception {
         RequestService req = new RequestService(request);
         out.write(req.execute().getBytes());
         out.flush();
     }
 
-    public static void main(String[] args) {
-        int port = 80;
-        Server server = new Server(port);
-        server.run();
-    }
 }

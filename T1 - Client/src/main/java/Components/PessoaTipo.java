@@ -14,4 +14,5 @@ public enum PessoaTipo {
     PessoaTipo(String nome){
         this.nome = nome;
     }
+
 }
