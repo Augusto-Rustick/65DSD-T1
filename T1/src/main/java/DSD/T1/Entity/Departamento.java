@@ -1,13 +1,25 @@
 package DSD.T1.Entity;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "departamento")
 public class Departamento {
 
 	@Id
@@ -20,6 +32,8 @@ public class Departamento {
 	protected String produto;
 	@NotNull
 	private int quantidadeEstoque;
+	
+    private List<Integer> pessoas;
 
 	public Departamento() {
 	}
@@ -60,6 +74,14 @@ public class Departamento {
 
 	public void setQuantidadeEstoque(int quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
+	}
+	
+	public List<Integer> getPessoas() {
+		return pessoas;
+	}
+
+	public void addPessoas(Integer pessoaId) {
+		this.pessoas.add(pessoaId);
 	}
 
 	@Override

@@ -1,9 +1,24 @@
 package DSD.T1.Entity;
 
+import java.util.Locale.Category;
+
+import org.springframework.context.annotation.ImportResource;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -19,6 +34,8 @@ public abstract class Pessoa {
 	protected String nome;
 	@Size(min = 5, message = "O telefone deve ter pelo menos 5 caracteres")
 	protected String endereco;
+	@NotNull
+    private String departamento;
 
 	public Pessoa() {
 
@@ -61,6 +78,14 @@ public abstract class Pessoa {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 	@Override

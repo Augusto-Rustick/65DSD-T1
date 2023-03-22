@@ -113,16 +113,16 @@ public class RequestService {
     private void renderJsonKeys() {
         switch (arrayDados[0]) {
             case "transportador" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "carregamento", "id"};
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "carregamento", "departamento", "id"};
             case "funcionario" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "departamento", "id"};
             case "departamento" ->
                 jsonKeys = new String[]{"entity", "requestType", "nome", "produto", "quantidadeEstoque", "id"};
         }
     }
 
     private int getJsonForInteration(boolean isUpdate) {
-        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 7;
+        int forInteration = arrayDados[0].equalsIgnoreCase("departamento") ? 5 : 8;
         if (isUpdate) {
             forInteration++;
         }
