@@ -17,7 +17,7 @@ import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ViewSubtrair extends JFrame {
+public class ViewAdicionar extends JFrame {
 
 
     private final JComboBox<Departamento> productCb;
@@ -25,10 +25,10 @@ public class ViewSubtrair extends JFrame {
     private final PessoaComboBox funcionarioComboBox;
     private final JButton registerButton;
 
-    public ViewSubtrair(Client client) throws IOException {
+    public ViewAdicionar(Client client) throws IOException {
 
         JLabel funcionarioCbLabel = new JLabel("Funcionário:");
-        funcionarioComboBox = new PessoaComboBox(client, PessoaTipo.FUNCIONARIO);
+        funcionarioComboBox = new PessoaComboBox(client, PessoaTipo.TRANSPORTADOR);
         funcionarioComboBox.setFont(funcionarioComboBox.getFont().deriveFont(16f));
         JLabel productCbLabel = new JLabel("Produto:");
         productCb = new JComboBox<Departamento>();
@@ -36,7 +36,7 @@ public class ViewSubtrair extends JFrame {
         JLabel qntLabel = new JLabel("Quantidade: ");
         qntField = new JTextField(20);
         qntField.setFont(qntField.getFont().deriveFont(16f));
-        registerButton = new JButton("Retirar");
+        registerButton = new JButton("Entregar");
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         adicionarEventoAoComboBoxFuncionario(client);
@@ -66,7 +66,7 @@ public class ViewSubtrair extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("Coletar estoque");
+        getContentPane().setName("Adicionar estoque");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,35 +75,60 @@ public class ViewSubtrair extends JFrame {
     }
 
     private void adicionarEventoAoComboBoxFuncionario(Client client) {
-        ViewAdicionar.prencherProdutos(client, funcionarioComboBox, productCb);
+        prencherProdutos(client, funcionarioComboBox, productCb);
+    }
+
+    static void prencherProdutos(Client client, PessoaComboBox funcionarioComboBox, JComboBox<Departamento> productCb) {
+        funcionarioComboBox.addActionListener(e -> {
+            String response = null;
+            try {
+                response = "{ data: " + client.write("Departamento;LIST;") + "}";
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            JSONObject json = new JSONObject(response);
+            ObjectMapper objectMapper = new ObjectMapper();
+            Departamento[] list;
+            try {
+                list = objectMapper.readValue(json.get("data").toString(), Departamento[].class);
+            } catch (JsonProcessingException ex) {
+                throw new RuntimeException(ex);
+            }
+            ArrayList<Departamento> deps = new ArrayList<>(List.of(list));
+            productCb.removeAllItems();
+            for (Departamento dep : deps) {
+                if (funcionarioComboBox.getDepId() == dep.getId())
+                    productCb.addItem(dep);
+            }
+        });
     }
 
     private void adiconarEventoProcessarReq(Client client) {
         registerButton.addActionListener(e -> {
             Departamento dep = (Departamento) productCb.getSelectedItem();
-            Pessoa f = (Pessoa) funcionarioComboBox.getSelectedItem();
+            Pessoa t = (Pessoa) funcionarioComboBox.getSelectedItem();
             if (dep == null) {
-                showMessageDialog(this, "O funcionário selecionado não está em nenhum departamento");
+                showMessageDialog(this, "O transportador selecionado não está em nenhum departamento");
             }
-            assert f != null;
+            assert t != null;
             assert dep != null;
-            int transaction = dep.getQuantidadeEstoque() - Integer.parseInt(qntField.getText());
-            int employeeStock = f.getQuantidadeVendas() + Integer.parseInt(qntField.getText());
-            if (transaction >= 0) {
-                String updateEmployee = "funcionario;UPDATE;" + f.getCpf() + ";" + f.getNome() + ";" + f.getEndereco()
-                        + ";" + f.getCtps() + ";" + employeeStock + ";" + f.getDepartamento() + ";" + f.getId() + ";";
+            int transaction = dep.getQuantidadeEstoque() + Integer.parseInt(qntField.getText());
+            int transporterLoad = t.getCarregamento() - Integer.parseInt(qntField.getText());
+            if (transporterLoad >= 0) {
+                String updateEmployee = "transportador;UPDATE;" + t.getCpf() + ";" + t.getNome() + ";" + t.getEndereco()
+                        + ";" + t.getTelefone() + ";" + transporterLoad + ";" + t.getDepartamento() + ";" + t.getId() + ";";
                 String updateDepartment = "departamento;UPDATE;" + dep.getNome() + ";" + dep.getProduto() + ";" + transaction + ";" + dep.getId();
                 try {
                     client.write(updateEmployee);
-                    f.setQuantidadeVendas(employeeStock);
+                    t.setCarregamento(transporterLoad);
                     client.write(updateDepartment);
                     dep.setQuantidadeEstoque(transaction);
-                    showMessageDialog(this, "O funcionário " + f.getNome() + " agora tem " + employeeStock + " em estoque!");
+                    showMessageDialog(this, "O departamento " + dep.getNome() + " agora tem " + transaction + " em estoque!");
                 } catch (IOException ex) {
                     showMessageDialog(this, ex.getMessage());
                 }
             } else {
-                showMessageDialog(this, "O departamento não possui estoque!");
+                showMessageDialog(this, "O transportador não possui estoque o suficiente!");
             }
         });
     }

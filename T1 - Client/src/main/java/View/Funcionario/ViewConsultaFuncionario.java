@@ -27,7 +27,12 @@ public class ViewConsultaFuncionario extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;GET;" + cpfField.getText() + ";";
+            String txt;
+            if (!cpfField.getText().equals("")){
+                txt = "funcionario;GET;" + cpfField.getText() + ";";
+            }else{
+                txt = "funcionario;LIST;";
+            }
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {
@@ -54,7 +59,7 @@ public class ViewConsultaFuncionario extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("consultafuncs");
+        getContentPane().setName("Consultar funcionários");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

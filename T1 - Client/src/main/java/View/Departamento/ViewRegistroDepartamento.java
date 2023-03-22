@@ -62,7 +62,7 @@ public class ViewRegistroDepartamento extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("registradeps");
+        getContentPane().setName("Registrar departamentos");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

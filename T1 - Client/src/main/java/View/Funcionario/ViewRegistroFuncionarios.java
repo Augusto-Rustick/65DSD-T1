@@ -39,7 +39,9 @@ public class ViewRegistroFuncionarios extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;INSERT;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";0";
+            String txt = "funcionario;INSERT;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";0;"
+                    + departmentCb.getId() + ";";
+            System.out.println(txt);
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
@@ -81,7 +83,7 @@ public class ViewRegistroFuncionarios extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("registrafuncs");
+        getContentPane().setName("Registar funcionários");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

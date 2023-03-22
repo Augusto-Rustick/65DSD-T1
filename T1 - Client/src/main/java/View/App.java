@@ -1,5 +1,6 @@
 package View;
 
+import View.Estoque.ViewAdicionar;
 import View.Transportador.ViewConsultaTransportador;
 import View.Transportador.ViewDeleteTransportador;
 import View.Transportador.ViewRegistroTransportador;
@@ -33,10 +34,10 @@ public class App extends JFrame {
 
         transportadorOptions = new JMenu("Transportador");
 
-        transportadorOptions.add(new CustomJMenuItem(this, panel, "New", new ViewRegistroTransportador(client).getContentPane()));
-        transportadorOptions.add(new CustomJMenuItem(this, panel, "See one", new ViewConsultaTransportador(client).getContentPane()));
-        transportadorOptions.add(new CustomJMenuItem(this, panel, "Update", new ViewUpdateTransportador(client).getContentPane()));
-        transportadorOptions.add(new CustomJMenuItem(this, panel, "Delete", new ViewDeleteTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Cadastrar", new ViewRegistroTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Ver", new ViewConsultaTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Atualizar", new ViewUpdateTransportador(client).getContentPane()));
+        transportadorOptions.add(new CustomJMenuItem(this, panel, "Remover", new ViewDeleteTransportador(client).getContentPane()));
         menuBar.add(transportadorOptions);
 
     }
@@ -45,10 +46,10 @@ public class App extends JFrame {
 
         funcionarioOptions = new JMenu("Funcionario");
 
-        funcionarioOptions.add(new CustomJMenuItem(this, panel, "New", new ViewRegistroFuncionarios(client).getContentPane()));
-        funcionarioOptions.add(new CustomJMenuItem(this, panel, "See one", new ViewConsultaFuncionario(client).getContentPane()));
-        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Update", new ViewUpdateFuncionarios(client).getContentPane()));
-        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Delete", new ViewDeleteFuncionario(client).getContentPane()));
+        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Cadastrar", new ViewRegistroFuncionarios(client).getContentPane()));
+        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Ver", new ViewConsultaFuncionario(client).getContentPane()));
+        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Atualizar", new ViewUpdateFuncionarios(client).getContentPane()));
+        funcionarioOptions.add(new CustomJMenuItem(this, panel, "Remover", new ViewDeleteFuncionario(client).getContentPane()));
         menuBar.add(funcionarioOptions);
 
     }
@@ -57,19 +58,20 @@ public class App extends JFrame {
 
         departamentoOptions = new JMenu("Departamento");
 
-        departamentoOptions.add(new CustomJMenuItem(this, panel, "New", new ViewRegistroDepartamento(client).getContentPane()));
-        departamentoOptions.add(new CustomJMenuItem(this, panel, "See one", new ViewConsultaDepartamento(client).getContentPane()));
-        departamentoOptions.add(new CustomJMenuItem(this, panel, "Update", new ViewUpdateDepartamento(client).getContentPane()));
-        departamentoOptions.add(new CustomJMenuItem(this, panel, "Delete", new ViewDeleteDepartamento(client).getContentPane()));
+        departamentoOptions.add(new CustomJMenuItem(this, panel, "Cadastrar", new ViewRegistroDepartamento(client).getContentPane()));
+        departamentoOptions.add(new CustomJMenuItem(this, panel, "Ver", new ViewConsultaDepartamento(client).getContentPane()));
+        departamentoOptions.add(new CustomJMenuItem(this, panel, "Atualizar", new ViewUpdateDepartamento(client).getContentPane()));
+        departamentoOptions.add(new CustomJMenuItem(this, panel, "Remover", new ViewDeleteDepartamento(client).getContentPane()));
         menuBar.add(departamentoOptions);
 
     }
 
     private void handleBuyOptions(JMenuBar menuBar, JPanel panel) throws IOException {
 
-        comprarOptions = new JMenu("Comprar");
+        comprarOptions = new JMenu("Estoque");
 
-        comprarOptions.add(new CustomJMenuItem(this, panel, "Produto", new ViewSubtrair(client).getContentPane()));
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Coletar", new ViewSubtrair(client).getContentPane()));
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Adicionar", new ViewAdicionar(client).getContentPane()));
         menuBar.add(comprarOptions);
 
     }
@@ -109,7 +111,7 @@ public class App extends JFrame {
 
         setJMenuBar(menuBar);
 
-        getContentPane().setName("connecting");
+        getContentPane().setName("Tela de conexão");
         getContentPane().add(contentPane, BorderLayout.CENTER);
 
         pack();

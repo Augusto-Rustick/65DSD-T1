@@ -63,7 +63,7 @@ public class ViewDeleteFuncionario extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("deletefuncs");
+        getContentPane().setName("Remover funcionários");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

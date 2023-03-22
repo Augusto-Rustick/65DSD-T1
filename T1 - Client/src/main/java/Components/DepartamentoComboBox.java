@@ -14,6 +14,13 @@ public class DepartamentoComboBox extends JComboBox<Departamento> {
     public DepartamentoComboBox(Client c) throws IOException {
         super();
         fillDepComboBox(c);
+        this.addActionListener(e->{
+            try {
+                fillDepComboBox(c);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     private void fillDepComboBox(Client client) throws IOException {
@@ -22,6 +29,7 @@ public class DepartamentoComboBox extends JComboBox<Departamento> {
         ObjectMapper objectMapper = new ObjectMapper();
         Departamento[] list = (Departamento[]) objectMapper.readValue(json.get("data").toString(), Departamento[].class);
         ArrayList<Departamento> deps = new ArrayList<>(List.of(list));
+        this.removeAllItems();
         for (Departamento dep : deps) {
             this.addItem(dep);
         }

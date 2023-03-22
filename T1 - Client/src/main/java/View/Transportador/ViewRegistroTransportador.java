@@ -101,7 +101,7 @@ public class ViewRegistroTransportador extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("registratransportadoress");
+        getContentPane().setName("Registrar tranportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

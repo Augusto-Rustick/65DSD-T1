@@ -27,7 +27,12 @@ public class ViewConsultaDepartamento extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "departamento;GET;"+ nomeDeptField.getText()+";";
+            String txt;
+            if (!nomeDeptField.getText().equals("")){
+                txt = "departamento;GET;" + nomeDeptField.getText() + ";";
+            }else{
+                txt = "departamento;LIST;";
+            }
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {
@@ -54,7 +59,7 @@ public class ViewConsultaDepartamento extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("consultadeps");
+        getContentPane().setName("Conuslta de Departamentos");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

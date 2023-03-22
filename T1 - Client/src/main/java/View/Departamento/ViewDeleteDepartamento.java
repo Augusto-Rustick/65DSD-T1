@@ -62,7 +62,7 @@ public class ViewDeleteDepartamento extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("deletedeps");
+        getContentPane().setName("Remover departamentos");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

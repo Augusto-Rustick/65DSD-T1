@@ -13,6 +13,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class ViewUpdateFuncionarios extends JFrame {
 
     private final JTextField idField;
+    private final JTextField idDepField;
     private final JTextField qntVendasField;
     private final JTextField cpfField;
     private final JTextField nameField;
@@ -23,6 +24,8 @@ public class ViewUpdateFuncionarios extends JFrame {
 
         idField = new JTextField(20);
         idField.setVisible(false);
+        idDepField = new JTextField(20);
+        idDepField.setVisible(false);
         qntVendasField = new JTextField(20);
         qntVendasField.setVisible(false);
         JLabel cpfLabel = new JLabel("CPF:");
@@ -55,6 +58,7 @@ public class ViewUpdateFuncionarios extends JFrame {
                     myjson = new JSONObject("{'nome':'','endereco':'','ctps':''}");
                 }
 
+                idDepField.setText(myjson.get("departamento").toString());
                 idField.setText(myjson.get("id").toString());
                 qntVendasField.setText(myjson.get("quantidadeVendas").toString());
                 nameField.setText(myjson.get("nome").toString());
@@ -69,7 +73,8 @@ public class ViewUpdateFuncionarios extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "funcionario;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText() + ";" + ctpsField.getText() + ";" + qntVendasField.getText() + ";" + idField.getText();
+            String txt = "funcionario;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";" + addressField.getText()
+                    + ";" + ctpsField.getText() + ";" + qntVendasField.getText() + ";" + idDepField.getText() + ";" + idField.getText() + ";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
@@ -110,7 +115,7 @@ public class ViewUpdateFuncionarios extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("updatefuncs");
+        getContentPane().setName("Atualizar funcionários");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

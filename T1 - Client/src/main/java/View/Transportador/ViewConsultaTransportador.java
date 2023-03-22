@@ -27,7 +27,12 @@ public class ViewConsultaTransportador extends JFrame {
         registerButton.setFont(registerButton.getFont().deriveFont(16f));
 
         registerButton.addActionListener(e -> {
-            String txt = "transportador;GET;" + cpfField.getText() + ";";
+            String txt;
+            if (!cpfField.getText().equals("")){
+                txt = "transportador;GET;" + cpfField.getText() + ";";
+            }else{
+                txt = "transportador;LIST;";
+            }
             try {
                 returnField.setText(client.write(txt));
             } catch (IOException ex) {
@@ -54,7 +59,7 @@ public class ViewConsultaTransportador extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("consultatransportadores");
+        getContentPane().setName("Consultar tranportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

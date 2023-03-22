@@ -75,8 +75,7 @@ public class ViewUpdateTransportador extends JFrame {
 
         registerButton.addActionListener(e -> {
             String txt = "transportador;UPDATE;" + cpfField.getText() + ";" + nameField.getText() + ";"
-                    + addressField.getText() + ";" + phoneField.getText() + ";" + carregamentoField.getText() + ";" + idField.getText() + ";" + idDepField.getText() + ";";
-            System.out.println(txt);
+                    + addressField.getText() + ";" + phoneField.getText() + ";" + carregamentoField.getText() + ";" + idDepField.getText() + ";" + idField.getText() + ";";
             try {
                 showMessageDialog(this, client.write(txt));
             } catch (IOException ex) {
@@ -122,7 +121,7 @@ public class ViewUpdateTransportador extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("updatetransportadores");
+        getContentPane().setName("Atualizar tranportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

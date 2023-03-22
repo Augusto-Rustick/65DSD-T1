@@ -47,6 +47,9 @@ public class RequestService {
         } catch (Exception ex) {
             return "Erro ao tentar fazer a requisição de tipo " + arrayDados[1];
         }
+        if (responseBody.isEmpty()){
+            return "A operração de "+ arrayDados[1] + " foi um sucesso!";
+        }
         return responseBody;
     }
 

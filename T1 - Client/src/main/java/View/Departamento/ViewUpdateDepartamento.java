@@ -97,7 +97,7 @@ public class ViewUpdateDepartamento extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("updatedeps");
+        getContentPane().setName("Atualizar departamentos");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

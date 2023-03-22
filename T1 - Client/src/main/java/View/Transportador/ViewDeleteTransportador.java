@@ -61,7 +61,7 @@ public class ViewDeleteTransportador extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("deletetransportadores");
+        getContentPane().setName("Remover tranportadores");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

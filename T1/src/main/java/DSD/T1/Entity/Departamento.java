@@ -32,8 +32,6 @@ public class Departamento {
 	protected String produto;
 	@NotNull
 	private int quantidadeEstoque;
-	
-    private List<Integer> pessoas;
 
 	public Departamento() {
 	}
@@ -74,14 +72,6 @@ public class Departamento {
 
 	public void setQuantidadeEstoque(int quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
-	}
-	
-	public List<Integer> getPessoas() {
-		return pessoas;
-	}
-
-	public void addPessoas(Integer pessoaId) {
-		this.pessoas.add(pessoaId);
 	}
 
 	@Override

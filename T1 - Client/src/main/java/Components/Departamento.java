@@ -9,7 +9,7 @@ public final class Departamento {
     @JsonProperty("nome")
     private final String nome;
     @JsonProperty("quantidadeEstoque")
-    private final int quantidadeEstoque;
+    private int quantidadeEstoque;
     @JsonProperty("id")
     private final int id;
 
@@ -35,9 +35,25 @@ public final class Departamento {
         return nome;
     }
 
+    public String getProduto() {
+        return produto;
+    }
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
     @Override
     public String toString() {
-        return getNome();
+        assert getNome() != null;
+        assert getProduto() != null;
+        String depNome = getNome().substring(0, 1).toUpperCase() + getNome().substring(1).toLowerCase();
+        String prodNome =  getProduto().substring(0, 1).toUpperCase() +  getProduto().substring(1).toLowerCase();
+        return depNome + " : " + prodNome;
     }
 
 }
