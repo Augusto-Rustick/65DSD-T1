@@ -112,8 +112,8 @@ public class RequestService {
 
     private void renderJsonKeys() {
         switch (arrayDados[0]) {
-            case "cliente" ->
-                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "email", "id"};
+            case "transportador" ->
+                jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "telefone", "carregamento", "id"};
             case "funcionario" ->
                 jsonKeys = new String[]{"entity", "requestType", "cpf", "nome", "endereco", "ctps", "quantidadeVendas", "id"};
             case "departamento" ->
