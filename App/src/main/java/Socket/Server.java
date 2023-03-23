@@ -71,7 +71,7 @@ public class Server {
         executorService.shutdown();
     }
 
-    public void handleRequest(String request, OutputStream out) throws Exception {
+    private void handleRequest(String request, OutputStream out) throws Exception {
         if (requester == null) {
             requester = new RequestService();
         }
