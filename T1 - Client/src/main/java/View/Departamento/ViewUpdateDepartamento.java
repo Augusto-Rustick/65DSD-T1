@@ -47,11 +47,18 @@ public class ViewUpdateDepartamento extends JFrame {
                     nomeField.setText("Não encontrado!");
                     myjson = new JSONObject("{'produto':'','quantidade':''}");
                 }
-
-                idField.setText(myjson.get("id").toString());
-                produtoField.setText(myjson.get("produto").toString());
-                qntProdutoFiled.setText(myjson.get("quantidadeEstoque").toString());
-                registerButton.setEnabled(true);
+                if(!myjson.has("id")){
+                    idField.setText("");
+                    produtoField.setText("");
+                    qntProdutoFiled.setText("");
+                    registerButton.setEnabled(false);
+                    showMessageDialog(this, "Departamento de nome '" + nomeField.getText() + "' não encontrado");
+                }else{
+                    idField.setText(myjson.get("id").toString());
+                    produtoField.setText(myjson.get("produto").toString());
+                    qntProdutoFiled.setText(myjson.get("quantidadeEstoque").toString());
+                    registerButton.setEnabled(true);
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

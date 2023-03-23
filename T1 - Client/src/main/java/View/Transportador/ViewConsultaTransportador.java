@@ -1,6 +1,7 @@
 package View.Transportador;
 
 import Socket.Client;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +35,13 @@ public class ViewConsultaTransportador extends JFrame {
                 txt = "transportador;LIST;";
             }
             try {
-                returnField.setText(client.write(txt));
+                String response = client.write(txt);
+                JSONObject myjson = new JSONObject(response);
+                if(myjson.has("id")){
+                    returnField.setText(response);
+                }else{
+                    returnField.setText("Nenhum registro encontrado com esse cpf");
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -1,6 +1,7 @@
 package View.Departamento;
 
 import Socket.Client;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +35,13 @@ public class ViewConsultaDepartamento extends JFrame {
                 txt = "departamento;LIST;";
             }
             try {
-                returnField.setText(client.write(txt));
+                String response = client.write(txt);
+                JSONObject myjson = new JSONObject(response);
+                if(myjson.has("id")){
+                    returnField.setText(response);
+                }else{
+                    returnField.setText("Nenhum registro encontrado com esse nome");
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -40,8 +40,12 @@ public class ViewDeleteFuncionario extends JFrame {
                 Logger.getLogger(ViewDeleteTransportador.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
-                    String txt = "funcionario;DELETE;" + myjson.get("id").toString();
-                    showMessageDialog(this, client.write(txt));
+                    if(myjson.has("id")){
+                        String txt = "funcionario;DELETE;" + myjson.get("id").toString();
+                        showMessageDialog(this, client.write(txt));
+                    }else {
+                        showMessageDialog(this, "Não foi possível encontrar um funcionario com esse cpf para deletar");
+                    }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -56,9 +56,19 @@ public class ViewUpdateTransportador extends JFrame {
                     myjson = new JSONObject(response);
                 } catch (JSONException je) {
                     cpfField.setText("Não encontrado!");
-                    myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','carregamento':''}");
+                    myjson = new JSONObject("{'nome':'','endereco':'','telefone':'','carregamento':'', 'departamento':''}");
                 }
-
+                System.out.println(myjson.toString());
+                if(!myjson.has("departamento")){
+                    idDepField.setText("");
+                    idField.setText("");
+                    nameField.setText("");
+                    addressField.setText("");
+                    phoneField.setText("");
+                    carregamentoField.setText("");
+                    registerButton.setEnabled(false);
+                    showMessageDialog(this, "Transportador de CPF '" + cpfField.getText() + "' não encontrado");
+                }else{
                 idDepField.setText(myjson.get("departamento").toString());
                 idField.setText(myjson.get("id").toString());
                 nameField.setText(myjson.get("nome").toString());
@@ -66,6 +76,7 @@ public class ViewUpdateTransportador extends JFrame {
                 phoneField.setText(myjson.get("telefone").toString());
                 carregamentoField.setText(myjson.get("carregamento").toString());
                 registerButton.setEnabled(true);
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

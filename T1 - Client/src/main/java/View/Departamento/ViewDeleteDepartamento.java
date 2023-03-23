@@ -40,8 +40,12 @@ public class ViewDeleteDepartamento extends JFrame {
                 Logger.getLogger(ViewDeleteTransportador.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
-                    String txt = "departamento;DELETE;" + myjson.get("id").toString();
-                    showMessageDialog(this, client.write(txt));
+                    if(myjson.has("id")){
+                        String txt = "departamento;DELETE;" + myjson.get("id").toString();
+                        showMessageDialog(this, client.write(txt));
+                    }else{
+                        showMessageDialog(this, "Não foi possível encontrar um departamento com esse nome para deletar");
+                    }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -32,7 +32,11 @@ public class ViewRegistroDepartamento extends JFrame {
         registerButton.addActionListener(e->{
             String txt = "departamento;INSERT;"+nomeField.getText() + ";" + produtoField.getText() + ";" + qntProdutoFiled.getText() + ";";
             try {
-                showMessageDialog(this, client.write(txt));
+                String retorno = client.write(txt);
+                if(retorno.substring(0,1).equals("{")){
+                    retorno = "Erro ao cadastrar, verifique os campos e tente novamente";
+                }
+                showMessageDialog(this, retorno);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

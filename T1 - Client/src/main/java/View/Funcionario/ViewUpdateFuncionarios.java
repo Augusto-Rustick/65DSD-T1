@@ -57,7 +57,17 @@ public class ViewUpdateFuncionarios extends JFrame {
                     cpfField.setText("Não encontrado!");
                     myjson = new JSONObject("{'nome':'','endereco':'','ctps':''}");
                 }
+                if(!myjson.has("departamento")){
+                    idDepField.setText("");
+                    idField.setText("");
+                    qntVendasField.setText("");
+                    nameField.setText("");
+                    addressField.setText("");
+                    ctpsField.setText("");
+                    registerButton.setEnabled(false);
+                    showMessageDialog(this, "Funcionario de CPF '" + cpfField.getText() + "' não encontrado");
 
+                }else {
                 idDepField.setText(myjson.get("departamento").toString());
                 idField.setText(myjson.get("id").toString());
                 qntVendasField.setText(myjson.get("quantidadeVendas").toString());
@@ -65,6 +75,7 @@ public class ViewUpdateFuncionarios extends JFrame {
                 addressField.setText(myjson.get("endereco").toString());
                 ctpsField.setText(myjson.get("ctps").toString());
                 registerButton.setEnabled(true);
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

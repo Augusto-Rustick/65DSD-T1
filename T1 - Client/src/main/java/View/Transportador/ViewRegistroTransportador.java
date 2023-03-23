@@ -55,7 +55,11 @@ public class ViewRegistroTransportador extends JFrame {
                     + departmentCb.getId() + ";";
             System.out.println(txt);
             try {
-                showMessageDialog(this, client.write(txt));
+                String retorno = client.write(txt);
+                if(retorno.substring(0,1).equals("{")){
+                    retorno = "Erro ao cadastrar, verifique os campos e tente novamente";
+                }
+                showMessageDialog(this, retorno);
             } catch (IOException ex) {
                 showMessageDialog(this, ex.getMessage());
                 ;
