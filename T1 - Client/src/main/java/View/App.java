@@ -24,6 +24,10 @@ import java.io.IOException;
 
 public class App extends JFrame {
 
+
+    protected String host;
+    protected int port;
+    protected int timeout;
     JMenu transportadorOptions = new JMenu("Transportador");
     JMenu funcionarioOptions = new JMenu("Funcionario");
     JMenu departamentoOptions = new JMenu("Departamento");
@@ -97,7 +101,11 @@ public class App extends JFrame {
         contentPane.add(button);
     }
 
-    public App() {
+    public App(String host, int port, int timeout) {
+
+        this.host = host;
+        this.port = port;
+        this.timeout = timeout;
 
         setTitle("Connection");
         setDefaultLookAndFeelDecorated(true);
