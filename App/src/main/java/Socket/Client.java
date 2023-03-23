@@ -12,25 +12,24 @@ public class Client {
         connect(host, port, timeout);
     }
 
-    InputStream in;
-    OutputStream out;
-    byte[] data = new byte[1024];
-    int dataBytes;
-    Socket conn;
+    private InputStream in;
+    private OutputStream out;
+    private final byte[] data = new byte[1024];
+    private int dataBytes;
 
     public String write(String req) throws IOException {
         out.flush();
         out.write(req.getBytes());
         dataBytes = in.read(data);
-        String reponse = new String(data, 0, dataBytes);
-        if(reponse.equals("exit"))
+        String response = new String(data, 0, dataBytes);
+        if(response.equals("exit"))
             System.exit(1);
-        return reponse;
+        return response;
     }
 
     private void connect(String host, int port, int timeout) throws IOException {
         try  {
-            conn = new Socket(host, port);
+            Socket conn = new Socket(host, port);
             conn.setSoTimeout(timeout);
             in = conn.getInputStream();
             out = conn.getOutputStream();
