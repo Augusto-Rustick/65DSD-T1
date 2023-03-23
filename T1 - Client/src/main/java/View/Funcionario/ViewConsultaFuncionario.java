@@ -1,6 +1,7 @@
 package View.Funcionario;
 
 import Socket.Client;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -29,18 +30,17 @@ public class ViewConsultaFuncionario extends JFrame {
 
         registerButton.addActionListener(e -> {
             String txt;
-            if (!cpfField.getText().equals("")){
+            if (!cpfField.getText().equals("")) {
                 txt = "funcionario;GET;" + cpfField.getText() + ";";
-            }else{
+            } else {
                 txt = "funcionario;LIST;";
             }
             try {
                 String response = client.write(txt);
-                JSONObject myjson = new JSONObject(response);
-                if(myjson.has("id")){
-                    returnField.setText(response);
-                }else{
-                    returnField.setText("Nenhum registro encontrado com esse cpf");
+                if (cpfField.getText().equals("")) {
+                    this.renderList(response);
+                } else {
+                    this.renderGet(response);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -72,6 +72,33 @@ public class ViewConsultaFuncionario extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private void renderList(String response) {
+        if (response.equalsIgnoreCase("[]")) {
+            returnField.setText("List: \n 0");
+        } else {
+            JSONArray jsonArray = new JSONArray(response.toString());
+            String texto = "List: \n Quantidade:" + jsonArray.length() + " \n \n";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                texto += "Funcionario " + (i + 1) + ": \n"
+                        + jsonObject.get("cpf").toString()
+                        + ", " + jsonObject.get("nome").toString()
+                        + ", " + jsonObject.get("endereco").toString() + "\n \n";
+            }
+            returnField.setText(texto);
+        }
+    }
+
+    private void renderGet(String response) {
+        System.out.println(response);
+        JSONObject myjson = new JSONObject(response);
+        if (myjson.has("id")) {
+            returnField.setText(response);
+        } else {
+            returnField.setText("Nenhum registro encontrado com esse cpf");
+        }
     }
 
 }

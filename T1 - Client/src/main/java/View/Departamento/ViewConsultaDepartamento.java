@@ -1,6 +1,7 @@
 package View.Departamento;
 
 import Socket.Client;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -36,11 +37,10 @@ public class ViewConsultaDepartamento extends JFrame {
             }
             try {
                 String response = client.write(txt);
-                JSONObject myjson = new JSONObject(response);
-                if(myjson.has("id")){
-                    returnField.setText(response);
-                }else{
-                    returnField.setText("Nenhum registro encontrado com esse nome");
+                if (nomeDeptField.getText().equals("")) {
+                    this.renderList(response);
+                } else {
+                    this.renderGet(response);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -73,5 +73,29 @@ public class ViewConsultaDepartamento extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
+    private void renderList(String response) {
+        if (response.equalsIgnoreCase("[]")) {
+            returnField.setText("List: \n 0");
+        } else {
+            JSONArray jsonArray = new JSONArray(response.toString());
+            String texto = "List: \n Quantidade:" + jsonArray.length() + " \n \n";
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                texto += "Departamento " + (i + 1) + ": \n"
+                        + jsonObject.get("nome").toString()
+                        + ", " + jsonObject.get("produto").toString()
+                        + ", " + jsonObject.get("quantidadeEstoque").toString() + "\n \n";
+            }
+            returnField.setText(texto);
+        }
+    }
 
+    private void renderGet(String response) {
+        JSONObject myjson = new JSONObject(response);
+        if (myjson.has("id")) {
+            returnField.setText(response);
+        } else {
+            returnField.setText("Nenhum registro encontrado com esse nome");
+        }
+    }
 }

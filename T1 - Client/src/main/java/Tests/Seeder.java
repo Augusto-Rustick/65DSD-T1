@@ -19,13 +19,14 @@ public class Seeder {
 
             //Cria alguns instancias de funcionario
             String insertFuncionarioStart = "funcionario;Insert;1111111111";
-            String insertFuncionarioEnd = ";Augusto;ruaruaruaaaa;asgfsaf;0;1;";
+            String insertFuncionarioEnd = ";Antônio;ruaruaruaaaa;asgfsaf;0;1;";
             for (int c = 1; c < 5; c++) {
                 String insertFuncionario = insertFuncionarioStart + c + insertFuncionarioEnd;
                 req.setRequest(insertFuncionario);
                 req.execute();
                 req.resetRequestService();
             }
+
             //Cria alguns instancias de transportador
             String insertTransportadorStart = "transportador;INSERT;1111111111";
             String insertTransportadorEnd = ";jonaslima;olimpia;479974815021;120;1;";
@@ -37,7 +38,7 @@ public class Seeder {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(executeRequest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Seeder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

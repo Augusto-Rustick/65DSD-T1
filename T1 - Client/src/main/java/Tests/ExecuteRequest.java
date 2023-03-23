@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author arust
  */
-public class executeRequest {
+public class ExecuteRequest {
 
     public static void main(String[] args) {
         String testeInsert = "";
@@ -49,7 +49,7 @@ public class executeRequest {
             String retorno = req.execute();
             System.out.println(retorno);
         } catch (Exception ex) {
-            Logger.getLogger(executeRequest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExecuteRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
