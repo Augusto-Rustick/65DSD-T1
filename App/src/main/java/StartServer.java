@@ -14,7 +14,7 @@ public class StartServer {
     }
 
     public void run(){
-        Server server = new Server(80);
-        server.run(5);
+        Server server = new Server(port);
+        server.run(connections);
     }
 }
