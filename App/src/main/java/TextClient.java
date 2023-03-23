@@ -99,7 +99,7 @@ public class TextClient {
     }
 
     private void run() throws IOException {
-        Client client = new Client(host, port, timeout);
+        Client client = new Client("192.168.233.101", 80, 9999);
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(

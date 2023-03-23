@@ -1,1 +1,1 @@
-java -jar "DSD-65.jar" -h "localhost" -p 80 -t 99999
+java -jar "DSD-65.jar" -h "192.168.233.101" -p 80 -t 99999

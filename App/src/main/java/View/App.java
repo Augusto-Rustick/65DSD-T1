@@ -84,7 +84,7 @@ public class App extends JFrame {
         JButton button = new JButton("Connect");
         button.addActionListener(e -> {
             try {
-                client = new Client("localhost", 80, 9999);
+                client = new Client(host, port, timeout);
                 handleTransportadorOptions(menuBar, contentPane);
                 handleFuncionarioOptions(menuBar, contentPane);
                 handleDepartamentoOptions(menuBar, contentPane);
