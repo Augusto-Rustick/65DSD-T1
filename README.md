@@ -20,6 +20,6 @@
 * Rodar o arquivo T1Application.java
 * Entrar na pasta App
 * Executar o DSD-65_Server.jar 
-> java -jar ".\src\main\build\DSD_65_Server\DSD-65.jar" -p 80 -m 5 
+> java -jar ".\src\main\build\DSD_65_Server\DSD-65.jar" -p [VALOR DA PORTA] -m [NUMERO DE CONEXÕES] 
 * Executar o DSD-65_ViewClient.jar 
-> java -jar ".\src\main\build\DSD_65_ViewClient\DSD-65.jar" -h localhost -p 80
+> java -jar ".\src\main\build\DSD_65_ViewClient\DSD-65.jar" -h [ENDEREÇO IP / LOCALHOST] -p [VALOR DA PORTA]
