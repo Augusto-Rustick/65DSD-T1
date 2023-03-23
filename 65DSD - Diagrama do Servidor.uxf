@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>80</y>
+      <w>370</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+-serverSocket: ServerSocket 
+-keepRunning: volatile boolean
+-requester: RequestService
+--
+-handleRequest(request: String, out: OutputStream): void
++run(maxConnections: int): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>80</y>
+      <w>280</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>RequestService
+--
+-arrayDados: String[]
+-jsonKeys: String[]
+-baseUrl: String="http://localhost:8080/"
+-request: String
+--
+-Métodos internos privados
++execute(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>120</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes> Belongs to..
+lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>260</y>
+      <w>280</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Client
+--
+-in: InputStream
+-out: OutputStream
+-data: byte[]=new byte[1024]
+-dataBytes: int
+--
+-connect(host: String, port: int, timeout: int): void
++write(req: String): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
