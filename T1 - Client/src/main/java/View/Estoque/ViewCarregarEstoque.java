@@ -17,7 +17,7 @@ import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ViewAdicionar extends JFrame {
+public class ViewCarregarEstoque extends JFrame {
 
 
     private final JComboBox<Departamento> productCb;
@@ -25,9 +25,9 @@ public class ViewAdicionar extends JFrame {
     private final PessoaComboBox funcionarioComboBox;
     private final JButton registerButton;
 
-    public ViewAdicionar(Client client) throws IOException {
+    public ViewCarregarEstoque(Client client) throws IOException {
 
-        JLabel funcionarioCbLabel = new JLabel("Funcionário:");
+        JLabel funcionarioCbLabel = new JLabel("Transportador:");
         funcionarioComboBox = new PessoaComboBox(client, PessoaTipo.TRANSPORTADOR);
         funcionarioComboBox.setFont(funcionarioComboBox.getFont().deriveFont(16f));
         JLabel productCbLabel = new JLabel("Produto:");
