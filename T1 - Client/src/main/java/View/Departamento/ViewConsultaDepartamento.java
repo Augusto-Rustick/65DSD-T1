@@ -95,8 +95,13 @@ public class ViewConsultaDepartamento extends JFrame {
     private void renderGet(String response, Client client) {
         JSONObject myjson = new JSONObject(response);
         if (myjson.has("id")) {
-            String texto = "GET:" + " \n \n";
-            returnField.setText(response);
+            String texto = "GET:" + " \n \n"
+                    + myjson.get("nome").toString() + "\n"
+                    + myjson.get("produto").toString() + "\n"
+                    + myjson.get("quantidadeEstoque").toString() + "\n"
+                    + this.getAllPessoaOfDepartamento(myjson.get("id").toString(), client);
+
+            returnField.setText(texto);
         } else {
             returnField.setText("Nenhum registro encontrado com esse nome");
         }

@@ -94,7 +94,11 @@ public class ViewConsultaTransportador extends JFrame {
     private void renderGet(String response) {
         JSONObject myjson = new JSONObject(response);
         if (myjson.has("id")) {
-            returnField.setText(response);
+            String texto = "GET:" + " \n \n"
+                    + myjson.get("cpf").toString() + "\n"
+                    + myjson.get("nome").toString() + "\n"
+                    + myjson.get("endereco").toString();
+            returnField.setText(texto);
         } else {
             returnField.setText("Nenhum registro encontrado com esse cpf");
         }
