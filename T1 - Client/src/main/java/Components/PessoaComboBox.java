@@ -17,7 +17,7 @@ public class PessoaComboBox extends JComboBox<Pessoa> {
     }
 
     private void fillDepComboBox(Client client, PessoaTipo pessoa) throws IOException {
-        String response = "{ data: "+client.write(pessoa+";LIST;")+"}";
+        String response = "{ data: "+client.write(pessoa+";LIST")+"}";
         JSONObject json = new JSONObject(response);
         ObjectMapper objectMapper = new ObjectMapper();
         Pessoa[] list = (Pessoa[]) objectMapper.readValue(json.get("data").toString(), Pessoa[].class);

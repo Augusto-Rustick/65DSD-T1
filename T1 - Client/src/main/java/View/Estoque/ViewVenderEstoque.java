@@ -5,19 +5,14 @@ import Components.Pessoa;
 import Components.PessoaComboBox;
 import Components.PessoaTipo;
 import Socket.Client;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class ViewSubtrair extends JFrame {
+public class ViewVenderEstoque extends JFrame {
 
 
     private final JComboBox<Departamento> productCb;
@@ -25,7 +20,7 @@ public class ViewSubtrair extends JFrame {
     private final PessoaComboBox funcionarioComboBox;
     private final JButton registerButton;
 
-    public ViewSubtrair(Client client) throws IOException {
+    public ViewVenderEstoque(Client client) throws IOException {
 
         JLabel funcionarioCbLabel = new JLabel("Funcionário:");
         funcionarioComboBox = new PessoaComboBox(client, PessoaTipo.FUNCIONARIO);
@@ -66,7 +61,7 @@ public class ViewSubtrair extends JFrame {
         gbc.gridwidth = 2;
         formPanel.add(registerButton, gbc);
 
-        getContentPane().setName("Coletar estoque");
+        getContentPane().setName("Vender estoque");
         add(formPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +70,7 @@ public class ViewSubtrair extends JFrame {
     }
 
     private void adicionarEventoAoComboBoxFuncionario(Client client) {
-        ViewAdicionar.prencherProdutos(client, funcionarioComboBox, productCb);
+        ViewCarregarEstoque.prencherProdutos(client, funcionarioComboBox, productCb);
     }
 
     private void adiconarEventoProcessarReq(Client client) {
@@ -98,7 +93,7 @@ public class ViewSubtrair extends JFrame {
                     f.setQuantidadeVendas(employeeStock);
                     client.write(updateDepartment);
                     dep.setQuantidadeEstoque(transaction);
-                    showMessageDialog(this, "O funcionário " + f.getNome() + " agora tem " + employeeStock + " em estoque!");
+                    showMessageDialog(this, "O funcionário " + f.getNome() + " fez " + employeeStock + " vendas!");
                 } catch (IOException ex) {
                     showMessageDialog(this, ex.getMessage());
                 }

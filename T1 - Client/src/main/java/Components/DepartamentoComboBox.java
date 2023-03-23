@@ -17,7 +17,7 @@ public class DepartamentoComboBox extends JComboBox<Departamento> {
     }
 
     private void fillDepComboBox(Client client) throws IOException {
-        String response = "{ data: "+client.write("departamento;LIST;")+"}";
+        String response = "{ data: "+client.write("departamento;LIST")+"}";
         JSONObject json = new JSONObject(response);
         ObjectMapper objectMapper = new ObjectMapper();
         Departamento[] list = (Departamento[]) objectMapper.readValue(json.get("data").toString(), Departamento[].class);

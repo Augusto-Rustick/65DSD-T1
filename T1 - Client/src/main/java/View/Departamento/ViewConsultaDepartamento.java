@@ -30,17 +30,17 @@ public class ViewConsultaDepartamento extends JFrame {
 
         registerButton.addActionListener(e -> {
             String txt;
-            if (!nomeDeptField.getText().equals("")){
+            if (!nomeDeptField.getText().equals("")) {
                 txt = "departamento;GET;" + nomeDeptField.getText() + ";";
-            }else{
-                txt = "departamento;LIST;";
+            } else {
+                txt = "departamento;LIST";
             }
             try {
                 String response = client.write(txt);
                 if (nomeDeptField.getText().equals("")) {
-                    this.renderList(response);
+                    this.renderList(response, client);
                 } else {
-                    this.renderGet(response);
+                    this.renderGet(response, client);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -73,29 +73,60 @@ public class ViewConsultaDepartamento extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
-    private void renderList(String response) {
+
+    private void renderList(String response, Client client) {
         if (response.equalsIgnoreCase("[]")) {
             returnField.setText("List: \n 0");
         } else {
             JSONArray jsonArray = new JSONArray(response.toString());
-            String texto = "List: \n Quantidade:" + jsonArray.length() + " \n \n";
+            String texto = "List: \nQuantidade:" + jsonArray.length() + " \n \n";
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 texto += "Departamento " + (i + 1) + ": \n"
                         + jsonObject.get("nome").toString()
                         + ", " + jsonObject.get("produto").toString()
-                        + ", " + jsonObject.get("quantidadeEstoque").toString() + "\n \n";
+                        + ", " + jsonObject.get("quantidadeEstoque").toString()
+                        + this.getAllPessoaOfDepartamento(jsonObject.get("id").toString(), client) + "\n \n";
             }
             returnField.setText(texto);
         }
     }
 
-    private void renderGet(String response) {
+    private void renderGet(String response, Client client) {
         JSONObject myjson = new JSONObject(response);
         if (myjson.has("id")) {
-            returnField.setText(response);
+            String texto = "GET:" + " \n \n"
+                    + myjson.get("nome").toString() + "\n"
+                    + myjson.get("produto").toString() + "\n"
+                    + myjson.get("quantidadeEstoque").toString() + "\n"
+                    + this.getAllPessoaOfDepartamento(myjson.get("id").toString(), client);
+
+            returnField.setText(texto);
         } else {
             returnField.setText("Nenhum registro encontrado com esse nome");
         }
+    }
+
+    private String getAllPessoaOfDepartamento(String departamentoId, Client client) {
+        try {
+            String requesting = "pessoa;List;" + departamentoId;
+            String response = client.write(requesting);
+
+            JSONArray jsonArrayPessoa = new JSONArray(response.toString());
+
+            String texto = "\nPessoas:" + jsonArrayPessoa.length() + " \nPessoas:\n";
+            for (int i = 0; i < jsonArrayPessoa.length(); i++) {
+                JSONObject jsonObject = jsonArrayPessoa.getJSONObject(i);
+                texto += "Pessoa " + (i + 1) + ": \n"
+                        + jsonObject.get("cpf").toString()
+                        + ", " + jsonObject.get("nome").toString() + "\n";
+            }
+
+            return texto;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }

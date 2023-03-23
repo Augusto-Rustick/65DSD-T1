@@ -1,13 +1,13 @@
 package View;
 
-import View.Estoque.ViewAdicionar;
+import View.Estoque.ViewCarregarEstoque;
 import View.Transportador.ViewConsultaTransportador;
 import View.Transportador.ViewDeleteTransportador;
 import View.Transportador.ViewRegistroTransportador;
 import View.Transportador.ViewUpdateTransportador;
 import Components.CustomJMenuItem;
 import Socket.Client;
-import View.Estoque.ViewSubtrair;
+import View.Estoque.ViewVenderEstoque;
 import View.Departamento.ViewConsultaDepartamento;
 import View.Departamento.ViewDeleteDepartamento;
 import View.Departamento.ViewRegistroDepartamento;
@@ -74,8 +74,8 @@ public class App extends JFrame {
 
         comprarOptions = new JMenu("Estoque");
 
-        comprarOptions.add(new CustomJMenuItem(this, panel, "Coletar", new ViewSubtrair(client).getContentPane()));
-        comprarOptions.add(new CustomJMenuItem(this, panel, "Adicionar", new ViewAdicionar(client).getContentPane()));
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Vender estoque", new ViewVenderEstoque(client).getContentPane()));
+        comprarOptions.add(new CustomJMenuItem(this, panel, "Repor estoque", new ViewCarregarEstoque(client).getContentPane()));
         menuBar.add(comprarOptions);
 
     }

@@ -39,7 +39,7 @@ public class TextClient {
                         tip = "departamento;INSERT;nome;produto;qntProduto;";
                     }
                     case "LIST" -> {
-                        tip = "departamento;LIST;";
+                        tip = "departamento;LIST";
                     }
                     case "DELETE" -> {
                         tip = "departamento;DELETE;nome";
@@ -58,7 +58,7 @@ public class TextClient {
                         tip = "funcionario;INSERT;cpf;nome;endereco;ctps;numVendas;idDepartamento;";
                     }
                     case "LIST" -> {
-                        tip = "funcionario;LIST;";
+                        tip = "funcionario;LIST";
                     }
                     case "DELETE" -> {
                         tip = "funcionario;DELETE;cpf";
@@ -77,7 +77,7 @@ public class TextClient {
                         tip = "transportador;INSERT;cpf;nome;endereco;telefone;numEstoque;idDepartamento;";
                     }
                     case "LIST" -> {
-                        tip = "transportador;LIST;";
+                        tip = "transportador;LIST";
                     }
                     case "DELETE" -> {
                         tip = "transportador;DELETE;cpf";
