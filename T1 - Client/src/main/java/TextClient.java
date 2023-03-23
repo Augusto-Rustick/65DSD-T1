@@ -1,4 +1,6 @@
 import Socket.Client;
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -7,43 +9,22 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TextClient {
-    static StringSelection stringSelection;
-    static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-    public static void main(String[] args) throws IOException {
-        Client client = new Client("localhost", 80, 1000);
-        Scanner scanner = new Scanner(System.in);
+    protected Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    @Parameter(names = {"--host", "-h"})
+    protected String host;
+    @Parameter(names = {"--port", "-p"})
+    protected int port;
+    @Parameter(names = {"--timeout", "-t"})
+    protected int timeout;
 
-        System.out.println(
-                """
-                        Entidades:\s
-
-                           - departamento: GET/INSERT/LIST/DELETE/UPDATE
-                           - funcionario: GET/INSERT/LIST/DELETE/UPDATE
-                           - transportador: GET/INSERT/LIST/DELETE/UPDATE
-
-                           Dica: A qualquer momento digite entidade/metodo para obter informações de uso!
-                           
-                           Informação: Para inserir espaços coloque um '%'!
-                           
-                           """
-        );
-
-
-        while (true) {
-            String cliInput = scanner.next();
-            String tips = returnTips(cliInput);
-            if (cliInput.equals(("exit")))
-                break;
-            if (tips.equals(""))
-                System.out.println(client.write(cliInput.replace('%', ' ')));
-            else
-                System.out.println(tips);
-        }
-
+    public static void main(String... argv) throws IOException {
+        TextClient main = new TextClient();
+        JCommander.newBuilder().addObject(main).build().parse(argv);
+        main.run();
     }
 
-    public static String returnTips(String string) {
+    public String returnTips(String string) {
         String[] strings = string.split("/");
         String tip = "";
         if (strings.length <= 1)
@@ -112,5 +93,38 @@ public class TextClient {
             tip += ".. O conteúdo copiado para a aréa de transferência!";
         }
         return tip;
+    }
+
+    private void run() throws IOException {
+        Client client = new Client(host, port, timeout);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(
+                """
+                        Entidades:\s
+
+                           - departamento: GET/INSERT/LIST/DELETE/UPDATE
+                           - funcionario: GET/INSERT/LIST/DELETE/UPDATE
+                           - transportador: GET/INSERT/LIST/DELETE/UPDATE
+
+                           Dica: A qualquer momento digite entidade/metodo para obter informações de uso!
+                           
+                           Informação: Para inserir espaços coloque um '%'!
+                           
+                           """
+        );
+
+
+        while (true) {
+            String cliInput = scanner.next();
+            String tips = returnTips(cliInput);
+            if (cliInput.equals(("exit")))
+                break;
+            if (tips.equals(""))
+                System.out.println(client.write(cliInput.replace('%', ' ')));
+            else
+                System.out.println(tips);
+        }
+
     }
 }
