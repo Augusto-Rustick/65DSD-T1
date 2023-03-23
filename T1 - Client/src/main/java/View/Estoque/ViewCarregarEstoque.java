@@ -82,7 +82,7 @@ public class ViewCarregarEstoque extends JFrame {
         funcionarioComboBox.addActionListener(e -> {
             String response = null;
             try {
-                response = "{ data: " + client.write("Departamento;LIST;") + "}";
+                response = "{ data: " + client.write("Departamento;LIST") + "}";
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -33,7 +33,7 @@ public class ViewConsultaFuncionario extends JFrame {
             if (!cpfField.getText().equals("")) {
                 txt = "funcionario;GET;" + cpfField.getText() + ";";
             } else {
-                txt = "funcionario;LIST;";
+                txt = "funcionario;LIST";
             }
             try {
                 String response = client.write(txt);
@@ -79,7 +79,7 @@ public class ViewConsultaFuncionario extends JFrame {
             returnField.setText("List: \n 0");
         } else {
             JSONArray jsonArray = new JSONArray(response.toString());
-            String texto = "List: \n Quantidade:" + jsonArray.length() + " \n \n";
+            String texto = "List: \nQuantidade:" + jsonArray.length() + " \n \n";
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 texto += "Funcionario " + (i + 1) + ": \n"
@@ -92,7 +92,6 @@ public class ViewConsultaFuncionario extends JFrame {
     }
 
     private void renderGet(String response) {
-        System.out.println(response);
         JSONObject myjson = new JSONObject(response);
         if (myjson.has("id")) {
             returnField.setText(response);

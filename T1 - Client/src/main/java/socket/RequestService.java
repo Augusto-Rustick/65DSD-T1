@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -37,6 +38,9 @@ public class RequestService {
     private String requesting() {
         String responseBody = "";
         String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/" + arrayDados[1].toLowerCase();
+        if (arrayDados.length > 2 && arrayDados[2] != null && !arrayDados[2].equalsIgnoreCase("")) {
+            formatedUrl += "/" + arrayDados[2];
+        }
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
             String methodName = "request" + arrayDados[1].toUpperCase();
             Method method = this.getClass().getMethod(methodName, CloseableHttpClient.class, String.class);
@@ -51,27 +55,21 @@ public class RequestService {
     }
 
     public String requestGET(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        formatedUrl += "/" + arrayDados[2];
         HttpGet request = new HttpGet(formatedUrl);
-        var response = httpClient.execute(request);
-        if (response.getEntity() != null) {
-            return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-        }
-        return response.getStatusLine().toString();
+        return this.requestGETorLISTorDELETE(httpClient, request);
     }
 
     public String requestLIST(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
         HttpGet request = new HttpGet(formatedUrl);
-        var response = httpClient.execute(request);
-        if (response.getEntity() != null) {
-            return EntityUtils.toString(response.getEntity());
-        }
-        return response.getStatusLine().toString();
+        return this.requestGETorLISTorDELETE(httpClient, request);
     }
 
     public String requestDELETE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        formatedUrl += "/" + arrayDados[2];
         HttpDelete request = new HttpDelete(formatedUrl);
+        return this.requestGETorLISTorDELETE(httpClient, request);
+    }
+
+    private String requestGETorLISTorDELETE(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
         var response = httpClient.execute(request);
         if (response.getEntity() != null) {
             return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
@@ -80,14 +78,14 @@ public class RequestService {
     }
 
     public String requestINSERT(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        return this.requestINSERTandUPDATE(httpClient, false);
+        return this.requestINSERTorUPDATE(httpClient, false);
     }
 
     public String requestUPDATE(CloseableHttpClient httpClient, String formatedUrl) throws IOException {
-        return this.requestINSERTandUPDATE(httpClient, true);
+        return this.requestINSERTorUPDATE(httpClient, true);
     }
 
-    private String requestINSERTandUPDATE(CloseableHttpClient httpClient, boolean isUpdate) throws IOException {
+    private String requestINSERTorUPDATE(CloseableHttpClient httpClient, boolean isUpdate) throws IOException {
         String formatedUrl = baseUrl + arrayDados[0].toLowerCase() + "/insertOrUpdate";
         HttpPost request = new HttpPost(formatedUrl);
         JSONObject json = this.getJson(isUpdate);
