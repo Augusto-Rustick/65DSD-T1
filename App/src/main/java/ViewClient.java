@@ -17,7 +17,7 @@ public class ViewClient {
     }
 
     public void run(){
-        new App("localhost", 80, 10000);
+        new App(host, port, timeout);
     }
 
 }
